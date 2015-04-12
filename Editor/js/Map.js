@@ -1,4 +1,5 @@
 // this file is obsolete and will be removed
+// © 2015 C. M. Turner
 function Map()
 {
 	var x = null;
