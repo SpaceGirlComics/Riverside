@@ -1,0 +1,16 @@
+body
+{
+	background-color: #4f4f4f;
+}
+
+div.screen
+{
+	border-radius:15px;
+	background-color:#000000;
+	//background-color: #ffffff;
+	width:800px;
+	height:550px;
+	margin:50px Auto;
+	position:relative;
+	overflow:hidden;
+}
