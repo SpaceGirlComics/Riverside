@@ -1,3 +1,7 @@
+// functions for saving and loading maps to the server
+// © 2015 C. M. Turner
+
+// saves the map to the file name in the edit box
 function onSaveAs()
 {
 	con.message("Saving...");
@@ -12,6 +16,7 @@ function onSaveAs()
 	return(0);
 }
 
+// saves the map to the file selected in the list box
 function onSave()
 {
 	con.message("Saving...");
@@ -26,6 +31,8 @@ function onSave()
 	return(0);
 }
 
+// sends the data to the server via ajax
+// _nm = map name
 function doPost(_nm)
 {
 	var rp = document.getElementById("reply");
@@ -114,6 +121,7 @@ function doPost(_nm)
 	return(0);
 }
 
+// lloads file from server
 function onLoadFile()
 {
 	con.message("Loading...");
