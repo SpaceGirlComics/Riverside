@@ -12,7 +12,7 @@
 			RPG POC
 		</title>
 		<link rel="stylesheet" type="text/css" href="css/game.css" />
-		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript" src="js/RPG1.js"></script>
 		<script type="text/javascript" src="js/Waypoint.js"></script>
 		<script type="text/javascript" src="js/Character.js"></script>
 		<script type="text/javascript" src="js/Tile.js"></script>
