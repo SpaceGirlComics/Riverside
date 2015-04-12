@@ -1,4 +1,5 @@
 // pseudo console for outputting messages
+// © 2015 C. M. Turner
 // _c = a div element onto which messages will appear
 function Console(_c)
 {
