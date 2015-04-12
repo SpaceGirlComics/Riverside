@@ -1,3 +1,4 @@
+// this file is obsolete and will be removed
 function Map()
 {
 	var x = null;
