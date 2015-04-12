@@ -1,43 +1,52 @@
+// wraps around the destination canvas element
 function Dest()
 {
-	var can = null;
-	var ctx = null;
+	var can = null;				// destination canvas
+	var ctx = null;				// destination canvas context
 	
-	var w = null;
-	var h = null;
+	var w = null;				// width of the map being created in tiles
+	var h = null;				// height of the map being created in tiles
 	
-	var sw = null;
-	var sh = null;
+	var sw = null;				// width of the source rectangle
+	var sh = null;				// height of the source rectangle
 	
-	var dw = null;
-	var dh = null;
+	var dw = null;				// width of the destination rectangle (tile)
+	var dh = null;				// height of the destination rectangle (tile)
 	
-	var sx = null;
-	var sy = null;
+	var sx = null;				// delta mouse x coordinate 
+	var sy = null;				// delta mouse y coordinate
 	
-	var mx = null;
-	var my = null;
+	var mx = null;				// previous mouse coordinate
+	var my = null;				// previous mouse coordinate
 	
-	var layers = [];
-	var sLay = null;
+	var layers = [];			// array for the layers that comprise the map
+	var sLay = null;			// the index of the current layer
 	
-	var selecting = false;
-	var dragging = false;
+	var selecting = false;			// true if user is placing tiles
+	var dragging = false;			// true if user is moving the map
 	
-	var csr = new Cursor();
+	var csr = new Cursor();			// cursor that appears on the destination canvas
 	
-	var that = this;
+	var that = this;			// references the containing instance; may remove
 	
-	var stline = "";
+	var stline = "";			// doesnt appear to be used remove in future
 	
-	var objs = 0;
+	var objs = 0;				// number of game objects in the map. not very useful; may remove
 	
+	// defines or redefines a "Destination Canvas"
+	// _dc = canvas element to be used as the destination
+	// _w = width of the map being created in tiles
+	// _h = height of map in tiles
+	// _sw = source rectangle width
+	// _sh = source rectangle height
+	// _dw = destination rectangle width
+	// _dh = destination rectangle height
 	this.create = function(_dc, _w, _h, _sw, _sh, _dw, _dh)
-	{
+	{							
 		can = _dc;
 		can.style = "cursor:none;";
 		ctx = can.getContext('2d');
-		con.message(_dw+", "+_dh);
+		con.message(_dw+", "+_dh);		// removing console in future, this line will be too
 		w = _w;
 		h = _h;
 		sw = _sw;
@@ -50,6 +59,8 @@ function Dest()
 		sLay = -1;
 	}
 	
+	// creates a new layer using an array of numbers
+	// _n = 
 	this.addLayerFromArray = function(_n, _a, _tm)
 	{
 		var t = new Layer();
