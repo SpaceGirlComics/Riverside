@@ -1,0 +1,96 @@
+window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+var g = new Game();
+requestAnimationFrame(g.update);
+
+keys = [];
+
+var player = new Character();
+var wp = new Waypoint();
+
+function onMouseDown(_e, _t)
+{
+	wp.setActive(true);
+	wp.setPinned(true);
+	wp.setX(_e.clientX - _t.getBoundingClientRect().left);
+	wp.setY(_e.clientY - _t.getBoundingClientRect().top);
+}
+
+function onMouseUp(_e, _t)
+{
+	wp.setPinned(false);
+}
+
+function onMouseOut(_e, _t)
+{
+	wp.setPinned(false);
+}
+
+function onMouseMove(_e, _t)
+{
+	if(wp.isPinned())
+	{
+		wp.setX(_e.clientX - _t.getBoundingClientRect().left);
+		wp.setY(_e.clientY - _t.getBoundingClientRect().top);
+	}
+}
+
+function onKeyUp(_e)
+{
+	//keys[_e.keyCode] = false;
+	//player.setState(1);
+	player.sendMessage(1, 0, _e.keyCode);
+}
+function onKeyDown(_e)
+{
+	//keys[_e.keyCode] = true;
+	player.sendMessage(0, 0, _e.keyCode);
+	wp.setActive(false);
+}
+
+function type1RLD(_rletiles)
+{
+	var tiles = [];
+	for(x = 0; x < _rletiles.length; x++)
+	{
+		if(_rletiles[x] < 0)
+		{
+			for(var y = _rletiles[x]; y<0; y++)
+			{
+				tiles.push(_rletiles[x+1]);
+			}
+			x++;
+		}
+		else
+		{
+			tiles.push(_rletiles[x]);
+		}
+	}
+	return(tiles);
+}
+
+function type2RLD(_rletiles)
+{
+	var tiles = [];
+	for(x = 0; x < _rletiles.length; x++)
+	{
+		switch(_rletiles[x])
+		{
+			case -1:
+			{
+				x++;
+				for(var y = _rletiles[x]; y>0; y--)
+				{
+					tiles.push(_rletiles[x+1]);
+				}
+				x++;
+				break;
+			}
+			
+			default:
+			{
+				tiles.push(_rletiles[x]);
+			}
+		}
+	}
+	return(tiles);
+}
