@@ -1,4 +1,5 @@
 // square cursor for canvases
+// © 2015 C. M. Turner
 function Cursor()
 {
 	var x = null;						// left side coordinate
