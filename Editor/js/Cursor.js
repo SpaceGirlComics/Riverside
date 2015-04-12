@@ -1,14 +1,15 @@
+// square cursor for canvases
 function Cursor()
 {
-	var x = null;
-	var y = null;
-	var w = null;
-	var h = null;
-	var c = null;
+	var x = null;						// left side coordinate
+	var y = null;						// top side coordinate
+	var w = null;						// width of cursor
+	var h = null;						// height of cursor
+	var c = null;						// colour of cursor
 	
-	var that = this;
+	var that = this;					// references the current cursor
 	
-	this.create = function(_x, _y, _w, _h, _c)
+	this.create = function(_x, _y, _w, _h, _c)		// defines or redefines cursor
 	{
 		x = _x;
 		y = _y;
@@ -17,7 +18,7 @@ function Cursor()
 		c = _c;
 	}
 	
-	this.draw = function(_ctx)
+	this.draw = function(_ctx)				
 	{
 		_ctx.strokeStyle = c;
 		_ctx.beginPath()
