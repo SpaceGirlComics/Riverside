@@ -1,3 +1,7 @@
+// run length encoding functions
+// © 2015 C. M. Turner
+
+// regular length/value encode
 function type1RLE(_tiles)
 {
 	var rletiles = [];
@@ -39,6 +43,7 @@ function type1RLE(_tiles)
 	return(rletiles);
 }
 
+// length/value decode
 function type1RLD(_rletiles)
 {
 	var tiles = [];
@@ -61,6 +66,7 @@ function type1RLD(_rletiles)
 	return(tiles);
 }
 
+// inline command encode
 function type2RLE(_tiles)
 {
 	var rletiles = [];
@@ -110,6 +116,7 @@ function type2RLE(_tiles)
 	return(rletiles);
 }
 
+// inline command decode
 function type2RLD(_rletiles)
 {
 	var tiles = [];
