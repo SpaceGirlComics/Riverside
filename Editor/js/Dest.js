@@ -1,46 +1,46 @@
 // wraps around the destination canvas element
 function Dest()
 {
-	var can = null;				// destination canvas
+	var can = null;				// destination canvas element
 	var ctx = null;				// destination canvas context
 	
-	var w = null;				// width of the map being created in tiles
-	var h = null;				// height of the map being created in tiles
+	var w = null;				// integer, width of the map being created in tiles
+	var h = null;				// integer, height of the map being created in tiles
 	
-	var sw = null;				// width of the source rectangle
-	var sh = null;				// height of the source rectangle
+	var sw = null;				// integer, width of the source rectangle
+	var sh = null;				// integer, height of the source rectangle
 	
-	var dw = null;				// width of the destination rectangle (tile)
-	var dh = null;				// height of the destination rectangle (tile)
+	var dw = null;				// integer, width of the destination rectangle (tile)
+	var dh = null;				// integer, height of the destination rectangle (tile)
 	
-	var sx = null;				// delta mouse x coordinate 
-	var sy = null;				// delta mouse y coordinate
+	var sx = null;				// decimal, delta mouse x coordinate 
+	var sy = null;				// decimal, delta mouse y coordinate
 	
-	var mx = null;				// previous mouse coordinate
-	var my = null;				// previous mouse coordinate
+	var mx = null;				// decimal, previous mouse coordinate
+	var my = null;				// decimal, previous mouse coordinate
 	
 	var layers = [];			// array for the layers that comprise the map
-	var sLay = null;			// the index of the current layer
+	var sLay = null;			// integer, the index of the current layer
 	
-	var selecting = false;			// true if user is placing tiles
-	var dragging = false;			// true if user is moving the map
+	var selecting = false;			// boolean, true if user is placing tiles
+	var dragging = false;			// boolean, true if user is moving the map
 	
 	var csr = new Cursor();			// cursor that appears on the destination canvas
 	
 	var that = this;			// references the containing instance; may remove
 	
-	var stline = "";			// doesnt appear to be used remove in future
+	var stline = "";			// String, doesnt appear to be used remove in future
 	
-	var objs = 0;				// number of game objects in the map. not very useful; may remove
+	var objs = 0;				// integer, number of game objects in the map. not very useful; may remove
 	
 	// defines or redefines a "Destination Canvas"
 	// _dc = canvas element to be used as the destination
-	// _w = width of the map being created in tiles
-	// _h = height of map in tiles
-	// _sw = source rectangle width
-	// _sh = source rectangle height
-	// _dw = destination rectangle width
-	// _dh = destination rectangle height
+	// _w = integer greater than 0, width of the map being created in tiles
+	// _h = integer greater than 0, height of map in tiles
+	// _sw = integer greater than 0, source rectangle width
+	// _sh = integer greater than 0, source rectangle height
+	// _dw = integer greater than 0, destination rectangle width
+	// _dh = integer greater than 0, destination rectangle height
 	this.create = function(_dc, _w, _h, _sw, _sh, _dw, _dh)
 	{							
 		can = _dc;
@@ -60,7 +60,9 @@ function Dest()
 	}
 	
 	// creates a new layer using an array of numbers
-	// _n = 
+	// _n = String, new layer name
+	// _a = Array (of Integers), tile values
+	// _tm = Image, the tilemap
 	this.addLayerFromArray = function(_n, _a, _tm)
 	{
 		var t = new Layer();
