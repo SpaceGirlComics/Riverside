@@ -180,21 +180,25 @@ function Dest()
 		return(b.substring(0, b.lastIndexOf(","))+"]");
 	}
 	
+	// makes the layer visible if _v = true
 	this.setLayerVisible = function(_v)
 	{
 		layers[sLay].setVisible(_v);
 	}
 	
+	// sets selected layer to the one indexed at _i
 	this.setSelectedLayer = function(_i)
 	{
 		sLay = _i;
 	}
 	
+	// returns true if the current layer is visible 
 	this.getLayerVisible = function()
 	{
 		return(layers[sLay].isVisible());
 	}
 	
+	// returns array of tiles on layer indexed at _l expressed as integers
 	this.getTileNumbers = function(_l)
 	{
 		return(layers[_l].getTileNumbers());
@@ -216,22 +220,35 @@ function Dest()
 		}
 		csr.draw(ctx);
 		ctx.restore();
-		ctx.fillStyle = "#ffffff";
-		ctx.fillText(sLay, 10,10);
 	}
 
+	// starts changing tiles hovered over on on the currently selected layer
+	// _x = does not appear useful; may remove
+	// _y = does not appear useful; may remove
+	// _s = x position of source rectangle
+	// _t = y position of source rectangle
 	this.onSelectStart = function(_x, _y, _s, _t)
 	{
 		layers[sLay].setTile(iDivide(csr.getX(), dw), iDivide(csr.getY(), dh), _s, _t);
-		stline = _s+", "+_t;
+		stline = _s+", "+_t;	/// this line does not appear to be useful and may be removed
 		selecting = true;
 	}
 	
+	// stops changing tiles
+	// _x = does not appear useful; may remove
+	// _y = does not appear useful; may remove
+	// _s = does not appear useful; may remove
+	// _t = does not appear useful; may remove
 	this.onSelectStop = function(_x, _y, _s, _t)
 	{
 		selecting = false;
 	}
 	
+	// begins moving the map with the mouse
+	// _x = new mouse x coordinate
+	// _y = new mouse y coordinate
+	// _s = does not appear useful; may remove
+	// _t = does not appear useful; may remove
 	this.onScrollStart = function(_x, _y, _s, _t)
 	{
 		dragging = true;
@@ -239,11 +256,19 @@ function Dest()
 		my = _y;
 	}
 	
+	// begins moving the map with the mouse
+	// _x = does not appear useful; may remove
+	// _y = does not appear useful; may remove
+	// _s = does not appear useful; may remove
+	// _t = does not appear useful; may remove
 	this.onScrollStop = function(_x, _y, _s, _t)
 	{
 		dragging = false;
 	}
 	
+	// continues dragging or selecting, updates cursor position
+	// _x, _y = new mouse coordinates
+	// _s, _t = source rectangle coordinates
 	this.onMouseMove = function(_x, _y, _s, _t)
 	{
 	
@@ -269,6 +294,7 @@ function Dest()
 		
 	}
 	
+	// stops changing tiles and moving 
 	this.onMouseOut = function()
 	{
 		selecting = dragging = false;
