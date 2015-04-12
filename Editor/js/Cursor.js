@@ -7,8 +7,7 @@ function Cursor()
 	var h = null;						// height of cursor
 	var c = null;						// colour of cursor
 	
-	var that = this;					// references the current cursor
-	
+	var that = this;					// references the current cursor. dont think this is nessacry any more; may remove
 	this.create = function(_x, _y, _w, _h, _c)		// defines or redefines cursor
 	{
 		x = _x;
@@ -26,12 +25,14 @@ function Cursor()
 		_ctx.stroke();
 	}
 	
+	// regular retrieval functions 
 	this.getX = function(){return(x);}
 	this.getY = function(){return(y);}
 	this.getWidth = function(){return(w);}
 	this.getHeight = function(){return(h);}
 	this.getColor = function(){return(c);}
 	
+	// regular mutators
 	this.setExactX = function(_x){x = _x;}
 	this.setExactY = function(_y){y = _y;}
 	this.setX = function(_x){x = iDivide(_x, w)*w;}
