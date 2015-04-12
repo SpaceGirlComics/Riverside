@@ -71,6 +71,11 @@ function Dest()
 		sLay = 0;
 	}
 	
+	// adds a new layer into the array of layers
+	// _ln = string. new layer name
+	// _im = Image. tilemap
+	// _fx = the x coodinate of the source rect to fill the map with
+	// _fy = the y coordinate of the source rect to fill with
 	this.addLayer = function(_ln, _im, _fx, _fy)
 	{
 		var t = new Layer();
@@ -79,11 +84,13 @@ function Dest()
 		sLay = 0;
 	}
 	
+	// removes element at index _i and returns it 
 	this.removeLayer = function(_i)
 	{
 		return(layers.splice(_i,1));
 	}
 	
+	// swaps the layer at index sLay and sLay-1 
 	this.raiseSelectedLayer = function()
 	{
 		if(sLay >0)
@@ -94,6 +101,7 @@ function Dest()
 		}
 	}
 	
+	// swaps the layer at index sLay and sLay+1 
 	this.lowerSelectedLayer = function()
 	{
 		if(sLay < layers.length-1)
@@ -104,9 +112,82 @@ function Dest()
 		}
 	}
 	
+	// adds an game object to the array
+	// _obj = integer selects the oject to add
+	// _arg = Array, contains the values used to define object
+	this.addObject = function(_obj, _arg)
+	{
+		switch(_obj)
+		{
+			case 0:
+			{
+				var t = new Block();
+				t.create(_arg[0], csr.getX(), csr.getY(), _arg[3], _arg[4]);
+				layers[sLay].addObject(t);
+				objs++;
+			}
+		}
+	}
+	
+	// retrieves the compressed map data
+	// _encode = Integer, used to select further compression
+	this.getJsonMap = function(_encode)
+	{
+		var b = "\"width\":"+w+", \"height\":"+h+", \"sourceWidth\":"+sw+", \"sourceHeight\":"+sh+", \"destinationWidth\":"+sw+", \"destinationHeight\":"+sh+", \"layers\":[";
+		switch(_encode)
+		{
+			case 1:
+			{
+				for(var a = 0; a < layers.length; a++)
+				{
+					b += "{\"name\": \""+layers[a].getName()+"\", \"tiles\":[";
+					c = type1RLE(layers[a].getTileNumbers());
+					for(var d = 0; d < c.length;d++)
+					{
+						b+= c[d]+",";
+					}
+					b=b.substring(0, b.lastIndexOf(","))+"]},";
+				}
+				
+				break;
+			}
+			
+			case 2:
+			{
+				for(var a = 0; a < layers.length; a++)
+				{
+					b += "{\"name\": \""+layers[a].getName()+"\", \"tiles\":[";
+					c = type2RLE(layers[a].getTileNumbers());
+					for(var d = 0; d < c.length;d++)
+					{
+						b+= c[d]+",";
+					}
+					b=b.substring(0, b.lastIndexOf(","))+"]},";
+				}
+				
+				break;
+			}
+			
+			default:
+			{
+				for(var a = 0; a < layers.length; a++)
+				{
+					b += "{\"name\": \""+layers[a].getName()+"\", \"tiles\":["+layers[a].getJsonTileNumbers()+"]},";
+				}
+				break;
+			}
+		}
+		return(b.substring(0, b.lastIndexOf(","))+"]");
+	}
+	
 	this.setLayerVisible = function(_v)
 	{
 		layers[sLay].setVisible(_v);
+	}
+	
+	this.setSelectedLayer = function(_i)
+	{
+		sLay = _i;
 	}
 	
 	this.getLayerVisible = function()
@@ -114,9 +195,9 @@ function Dest()
 		return(layers[sLay].isVisible());
 	}
 	
-	this.setSelectedLayer = function(_i)
+	this.getTileNumbers = function(_l)
 	{
-		sLay = _i;
+		return(layers[_l].getTileNumbers());
 	}
 	
 	this.draw = function(_tm)
@@ -137,25 +218,6 @@ function Dest()
 		ctx.restore();
 		ctx.fillStyle = "#ffffff";
 		ctx.fillText(sLay, 10,10);
-	}
-	
-	this.getTileNumbers = function(_l)
-	{
-		return(layers[_l].getTileNumbers());
-	}
-	
-	this.addObject = function(_obj, _arg)
-	{
-		switch(_obj)
-		{
-			case 0:
-			{
-				var t = new Block();
-				t.create(_arg[0], csr.getX(), csr.getY(), _arg[3], _arg[4]);
-				layers[sLay].addObject(t);
-				objs++;
-			}
-		}
 	}
 
 	this.onSelectStart = function(_x, _y, _s, _t)
@@ -210,54 +272,5 @@ function Dest()
 	this.onMouseOut = function()
 	{
 		selecting = dragging = false;
-	}
-	
-	this.getJsonMap = function(_encode)
-	{
-		var b = "\"width\":"+w+", \"height\":"+h+", \"sourceWidth\":"+sw+", \"sourceHeight\":"+sh+", \"destinationWidth\":"+sw+", \"destinationHeight\":"+sh+", \"layers\":[";
-		switch(_encode)
-		{
-			case 1:
-			{
-				for(var a = 0; a < layers.length; a++)
-				{
-					b += "{\"name\": \""+layers[a].getName()+"\", \"tiles\":[";
-					c = type1RLE(layers[a].getTileNumbers());
-					for(var d = 0; d < c.length;d++)
-					{
-						b+= c[d]+",";
-					}
-					b=b.substring(0, b.lastIndexOf(","))+"]},";
-				}
-				
-				break;
-			}
-			
-			case 2:
-			{
-				for(var a = 0; a < layers.length; a++)
-				{
-					b += "{\"name\": \""+layers[a].getName()+"\", \"tiles\":[";
-					c = type2RLE(layers[a].getTileNumbers());
-					for(var d = 0; d < c.length;d++)
-					{
-						b+= c[d]+",";
-					}
-					b=b.substring(0, b.lastIndexOf(","))+"]},";
-				}
-				
-				break;
-			}
-			
-			default:
-			{
-				for(var a = 0; a < layers.length; a++)
-				{
-					b += "{\"name\": \""+layers[a].getName()+"\", \"tiles\":["+layers[a].getJsonTileNumbers()+"]},";
-				}
-				break;
-			}
-		}
-		return(b.substring(0, b.lastIndexOf(","))+"]");
 	}
 }
