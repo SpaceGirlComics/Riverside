@@ -1,5 +1,5 @@
 // collision block
-
+// © 2015 C. M. Turner
 function Block()
 {
 	var x;							// left coordinate
