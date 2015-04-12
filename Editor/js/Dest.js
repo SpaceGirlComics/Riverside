@@ -1,4 +1,5 @@
 // wraps around the destination canvas element
+// © 2015 C. M. Turner
 function Dest()
 {
 	var can = null;				// destination canvas element
