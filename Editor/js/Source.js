@@ -1,30 +1,37 @@
+// Wraps around the source canvas element
+// © 2015 C. M. Turner
 function Source()
 {
-	var can = null;
-	var ctx = null;
+	var can = null;						// source canvas element
+	var ctx = null;						// source canvas context
 	
-	var sw = null;
-	var sh = null;
-	var w = null;
-	var h = null;
+	var sw = null;						// integer, width of the source rectangle
+	var sh = null;						// integer, height of the source rectangle
+	var w = null;						// integer, width of the texture map in tiles
+	var h = null;						// integer, height of the texture map in tiles
 	
-	var sx = 0;
-	var sy = 0;
-	var mx = 0;
-	var my = 0;
+	var sx = 0;						// integer, layers x offset
+	var sy = 0;						// integer, layers y offset
+	var mx = 0;						// integer, current mouse x coordinate
+	var my = 0;						// integer, current mouse y coordinate
 	
-	var map = null;
+	var map = null;						// I dont think this is used, remove later
 	
-	var selecting = false;
-	var dragging = false;
+	var selecting = false;					// boolean, true when selecting a source tile
+	var dragging = false;					// boolean, true when scrolling
 	
-	var crs = null;
+	var crs = null;						// cursor
 	
-	var that = this;
+	var that = this;					// I dont think this is used, remove later
 	
+	// defines instance
+	// _tm = Image, texture map
+	// _sw = integer, source rectangle width
+	// _sh = integer, source rectangle height
+	// _sc = source canvas element
 	this.create = function(_tm, _sw, _sh, _sc)
 	{
-		can = _sc;
+		can = _sc;					
 		ctx = can.getContext('2d');
 		
 		sw = _sw;
@@ -94,11 +101,12 @@ function Source()
 		my = _y;
 	}
 	
+	// stops selection and dragging when mouse leaves the canvas
 	this.onMouseOut = function()
 	{
 		selecting = dragging = false;
 	}
 	
-	this.getX = function(){return(crs.getX());}
-	this.getY = function(){return(crs.getY());}
+	this.getX = function(){return(crs.getX());}		// gets the x coordinate of the cursor
+	this.getY = function(){return(crs.getY());}		// gets the y coordinate of the cursor
 }
