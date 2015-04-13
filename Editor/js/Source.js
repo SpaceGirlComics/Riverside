@@ -58,6 +58,8 @@ function Source()
 		
 	}
 	
+	// starts selection mode and selects tile the is pointed to
+	// _x, _y = integer, mouse coordinates
 	this.onSelectStart = function(_x, _y)
 	{
 		selecting = true;
@@ -65,11 +67,15 @@ function Source()
 		//con.message("Set Cursor Position "+_x+", "+_y);
 	}
 	
+	// ends selection mode
+	// _x, _y = integer, mouse coordinated, not useful; may remove
 	this.onSelectEnd = function(_x, _y)
 	{
 		selecting = false;
 	}
 	
+	// starts dragg mode, takes note of current mouse position
+	// _x, _y = integer, mouse coodinates
 	this.onScrollStart = function(_x, _y)
 	{
 		dragging = true;
@@ -77,11 +83,17 @@ function Source()
 		my = _y;
 	}
 	
+	// ends drag mode
+	// _x, _y = integer, mouse coordinates, not useful; may remove
 	this.onScrollEnd = function(_x, _y)
 	{
 		dragging = false;
 	}
 	
+	// if selecting then select the tile the cursor has moved onto
+	// if dragging add the distance the mouse travelled to the scrolling total
+	// takees note of the new mouse coordiantes
+	// _x, _y = integer, mouse coordinates
 	this.onMouseMove = function(_x, _y)
 	{
 		if(selecting)
