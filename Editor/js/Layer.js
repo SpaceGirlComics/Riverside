@@ -1,5 +1,5 @@
 // Layer for maps
-// © 2015 C. M. Turner
+// © 2015 spacegirl.net
 function Layer()
 {
 	var tiles = null;				// array of tiles on this layer
