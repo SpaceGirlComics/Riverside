@@ -1,6 +1,6 @@
 // run length encoding functions
-// April 15, 2015 - initial submit
 // © 2015 spacegirl.net
+// April 15, 2015 - initial submit
 
 // regular length/value encode
 function type1RLE(_tiles)
