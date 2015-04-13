@@ -1,5 +1,5 @@
 // run length encoding functions
-// © 2015 C. M. Turner
+// © 2015 spacegirl.net
 
 // regular length/value encode
 function type1RLE(_tiles)
