@@ -1,5 +1,7 @@
 // program specific global functions and variables
 // © 2015 spacegirl.net
+// April 15, 2015 - initial submit
+
 var proj = null;			// current project when one is opened
 var con = null;				// pseudo console for output and some commands
 var ob = false;				// true whe editor is setting objects on the map
