@@ -1,5 +1,6 @@
-// © 2015 spacegirl.net
 // the smallest map element
+// © 2015 spacegirl.net
+// April 15, 2015 - initial submit
 function Tile()
 {
 	var x = null;					// integer, x coordinate of the destination rectangle
