@@ -1,5 +1,5 @@
 // wraps around the destination canvas element
-// © 2015 C. M. Turner
+// © 2015 spacegirl.net
 function Dest()
 {
 	var can = null;				// destination canvas element
