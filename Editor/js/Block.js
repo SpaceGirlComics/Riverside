@@ -1,5 +1,5 @@
 // collision block
-// © 2015 C. M. Turner
+// © 2015 spacegirl.net
 function Block()
 {
 	var x;							// left coordinate
