@@ -1,5 +1,7 @@
 // this file is obsolete and will be removed
 // © 2015 spacegirl.net
+// April 15, 2015 - initial submit
+
 function Map()
 {
 	var x = null;
