@@ -1,5 +1,6 @@
 // Wraps around the source canvas element
 // © 2015 spacegirl.net
+// April 15, 2015 - initial submit
 function Source()
 {
 	var can = null;						// source canvas element
