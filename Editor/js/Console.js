@@ -1,5 +1,7 @@
 // pseudo console for outputting messages
 // © 2015 spacegirl.net
+// April 15, 2015 - initial submit
+
 // _c = a div element onto which messages will appear
 function Console(_c)
 {
