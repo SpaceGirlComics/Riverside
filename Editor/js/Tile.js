@@ -1,4 +1,5 @@
-// © 2015 C. M. Turner
+// © 2015 spacegirl.net
+// the smallest map element
 function Tile()
 {
 	var x = null;					// integer, x coordinate of the destination rectangle
