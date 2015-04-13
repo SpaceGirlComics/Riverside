@@ -1,7 +1,11 @@
-var proj = null;
-var con = null;
-var ob = false;
+// program specific global functions and variables
+// © 2015 spacegirl.net
+var proj = null;			// current project when one is opened
+var con = null;				// pseudo console for output and some commands
+var ob = false;				// true whe editor is setting objects on the map
 
+// makes sure a string can be used as a name for a map or layer
+// _s = String, the name to be verified
 function verifyName(_s)
 {
 	var s = typeof(_s);
@@ -33,6 +37,8 @@ function verifyName(_s)
 	return(0);
 }
 
+// checks that mesurements are usable when constructing a map
+// _n = integer, the value to be verified
 function verifyDimension(_n)
 {
 	if(!isNumber(_n))
@@ -48,6 +54,7 @@ function verifyDimension(_n)
 	return(0);
 }
 
+// called when the page loads, initializes parts of the editor that require it
 function onLoad()
 {
 	con = new Console(document.getElementById("con"));
@@ -55,6 +62,8 @@ function onLoad()
 	setLayersActivate(true);
 }
 
+// called when the button marked "build" is pressed. 
+// checks that the user has supplied info to/proceeds to create a new project
 function onBuild()
 {
 	var d = document;
@@ -133,6 +142,9 @@ function onBuild()
 	}
 }
 
+// called when the user inputs a numeric value
+// verifies that the value is numeral only and that the value is greater than zero
+// _t = Element, the element containing the number
 function onNumberChange(_t)
 {
 	if(_t.value.length > 0 && verifyDimension(parseInt(_t.value)) != 0)
@@ -145,6 +157,9 @@ function onNumberChange(_t)
 	}
 }
 
+// called when a name value is updated
+// makes sure the name is at least 1 character long, starts with a letter, etc... (see function verifyName(_s))
+// _t = Element, the element containing the name
 function onNameChange(_t)
 {
 	if(_t.value.length > 0 && verifyName(_t.value) != 0)
@@ -157,6 +172,11 @@ function onNameChange(_t)
 	}
 }
 
+// called when play/pause button (marked ">" or "||") is pressed
+// plays selected music or nothing if "none" is selected
+// pauses the audio if some is playing
+// _e = the event object
+// _t = Element, the play/pause button
 function onPlay(_t, _e)
 {
 	var aud = document.getElementById("mAudio");
@@ -187,6 +207,9 @@ function onPlay(_t, _e)
 	}
 }
 
+// called when audio has reached its end
+// resets play/pause button and audio time
+// _t = Element, the audio
 function onAudioEnd(_t)
 {
 	var pb = document.getElementById("mPlay");
@@ -195,11 +218,17 @@ function onAudioEnd(_t)
 	_t.currentTime = 0;
 }
 
+// clears pseudo console
 function onClear()
 {
 	con.clear();
 }
 
+// called when the user selects a tab
+// hides the displaying tab, makes selected tab visible
+// illuminates selected tab
+// _e = the event object
+// _t = Element, the td element used as a tab
 function onSelect(_t, _e)
 {
 	var a = document.getElementById("menu");
@@ -229,6 +258,9 @@ function onSelect(_t, _e)
 	a.style.height = "200px";
 }
 
+// called when the return button (marked "<-|") is pressed
+// process a command sent from the pseudo console
+// _e = the event object
 function onCommand(_e)
 {
 	var ta = document.getElementById("command");
@@ -251,8 +283,9 @@ function onCommand(_e)
 	}
 }
 
-
-
+// called when a project is created or loaded
+// enables the adding, moving, and removal of layers
+// _t = boolean, true if enabling, othewise false
 function setLayersActivate(_t)
 {
 	var d = document;
@@ -267,6 +300,9 @@ function setLayersActivate(_t)
 	d.getElementById("lFill").disabled = _t;
 }
 
+// called when the add layer button (marked "+") is pressed
+// adds a new layer to the list and creates an new Layer object
+// _e = the event object
 function onAddLayer(_e)
 {
 	var d = document;
@@ -307,6 +343,9 @@ function onAddLayer(_e)
 
 }
 
+// called when the remove layer button ("-") is pressed
+// removes the selected layer from the project
+// _e = the event object
 function onRemLayer(_e)
 {
 	var d = document;
@@ -323,6 +362,9 @@ function onRemLayer(_e)
 	con.message("removed layer :" +a);
 }
 
+// called when the raise layer button "^" is pressed
+// swaps the selected layer with the one above
+// _e = the event object
 function onRaiseLayer(_e)
 {
 	var d = document;
@@ -343,6 +385,9 @@ function onRaiseLayer(_e)
 	}
 }
 
+// called when the lower layer button "v" is pressed
+// swaps the selected layer with the one below
+// _e = the event object
 function onLowerLayer(_e)
 {
 	var d = document;
@@ -363,6 +408,10 @@ function onLowerLayer(_e)
 	}
 }
 
+// called when the state of the of the layer visibility check is changed
+// when checked the selected layers visibility property is set to true otherwise false
+// _e = the event object
+// _t = Element, the visibility checkbox element
 function onSetLayerVisible(_e, _t)
 {
 	con.message("Setting Layer visibility to: "+_t.checked);
@@ -372,6 +421,9 @@ function onSetLayerVisible(_e, _t)
 	}
 }
 
+// called when the user selects a different layer
+// _e = the event object
+// _t = Element, the layer list element
 function onLayerChange(_e, _t)
 {
 	if(_t.selectedIndex > -1 && proj != null)
@@ -383,6 +435,8 @@ function onLayerChange(_e, _t)
 	}
 }
 
+// called when the user presses the "Auto" button
+// fills in minimum required info to create a quick new map
 function onAuto()
 {
 	d = document;
@@ -397,6 +451,9 @@ function onAuto()
 	d.getElementById("mWidth").value = "50";
 }
 
+// called when the user presses a mouse button down over the source canvas
+// _e = the event object
+// _t = Element, the source canvas
 function onSourceDown(_e, _t)
 {
 	var a = getClickOnElementPosition(_e.clientX, _e.clientY, _t);
@@ -413,6 +470,9 @@ function onSourceDown(_e, _t)
 	}
 }
 
+// called when the user lets go of a mouse button down over the source canvas
+// _e = the event object
+// _t = Element, the source canvas
 function onSourceUp(_e, _t)
 {
 	var a = getClickOnElementPosition(_e.clientX, _e.clientY, _t);
@@ -429,6 +489,9 @@ function onSourceUp(_e, _t)
 	}
 }
 
+// called when the user moves the mouse while over the source canvas
+// _e = the event object
+// _t = Element, the source canvas
 function onSourceMove(_e, _t)
 {
 	var a = getClickOnElementPosition(_e.clientX, _e.clientY, _t);
@@ -439,6 +502,9 @@ function onSourceMove(_e, _t)
 	}
 }
 
+// called when the user moves the mouse off the source canvas
+// _e = the event object
+// _t = Element, the source canvas
 function onSourceOut(_e, _t)
 {
 	if(proj != null)
@@ -449,6 +515,9 @@ function onSourceOut(_e, _t)
 
 //////////////////////
 
+// called when the user presses a mouse button down over the destination canvas
+// _e = the event object
+// _t = Element, the source canvas
 function onDestDown(_e, _t)
 {
 	var a = getClickOnElementPosition(_e.clientX, _e.clientY, _t);
@@ -473,6 +542,9 @@ function onDestDown(_e, _t)
 	//con.message("Mouse Button "+_e.button+" Pressed @ "+_e.clientX+", "+_e.clientY+" On The Destination Element");
 }
 
+// called when the user lets go of a mouse button down over the destination canvas
+// _e = the event object
+// _t = Element, the source canvas
 function onDestUp(_e, _t)
 {
 	var a = getClickOnElementPosition(_e.clientX, _e.clientY, _t);
@@ -490,6 +562,9 @@ function onDestUp(_e, _t)
 	//con.message("Mouse Button "+_e.button+" Released @ "+_e.clientX+", "+_e.clientY+" On The Destination Element");
 }
 
+// called when the user moves the mouse while over the destination canvas
+// _e = the event object
+// _t = Element, the source canvas
 function onDestMove(_e, _t)
 {
 	var a = getClickOnElementPosition(_e.clientX, _e.clientY, _t);
@@ -500,6 +575,9 @@ function onDestMove(_e, _t)
 	//con.message("Mouse Moved To "+_e.clientX+", "+_e.clientY+" On The Destination Element");
 }
 
+// called when the user moves the mouse off the destination canvas
+// _e = the event object
+// _t = Element, the source canvas
 function onDestOut(_e, _t)
 {
 	if(proj != null)
@@ -511,6 +589,7 @@ function onDestOut(_e, _t)
 
 ////////////////////
 
+// tablet functions to be implemented later
 function onSourceTouchStart(_e){}
 function onSourceTouchEnd(_e){}
 function onSourceTouchChange(_e){}
