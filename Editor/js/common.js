@@ -1,5 +1,6 @@
 // common global functions
 // © 2015 spacegirl.net
+// April 15, 2015 - initial submit
 
 // performs an integer division
 function iDivide(num, den)
