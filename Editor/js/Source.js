@@ -1,5 +1,5 @@
 // Wraps around the source canvas element
-// © 2015 C. M. Turner
+// © 2015 spacegirl.net
 function Source()
 {
 	var can = null;						// source canvas element
