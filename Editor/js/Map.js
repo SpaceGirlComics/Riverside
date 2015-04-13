@@ -1,5 +1,5 @@
 // this file is obsolete and will be removed
-// © 2015 C. M. Turner
+// © 2015 spacegirl.net
 function Map()
 {
 	var x = null;
