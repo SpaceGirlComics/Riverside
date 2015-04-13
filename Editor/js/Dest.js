@@ -1,5 +1,7 @@
 // wraps around the destination canvas element
 // © 2015 spacegirl.net
+// April 15, 2015 - initial submit
+
 function Dest()
 {
 	var can = null;				// destination canvas element
