@@ -1,5 +1,5 @@
 // functions for saving and loading maps to the server
-// © 2015 C. M. Turner
+// © 2015 spacegirl.net
 
 // saves the map to the file name in the edit box
 function onSaveAs()
