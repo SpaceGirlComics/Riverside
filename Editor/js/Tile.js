@@ -1,25 +1,31 @@
+// © 2015 C. M. Turner
 function Tile()
 {
-	var x = null;
-	var y = null;
-	var s = null;
-	var t = null;
+	var x = null;					// integer, x coordinate of the destination rectangle
+	var y = null;					// integer, y coordinate of the destination rectangle
+	var s = null;					// integer, x coordinate of the source rectangle
+	var t = null;					// integer, y coordinate of the source rectangle
 	
-	var dw = null;
-	var dh = null;
-	var sw = null;
-	var sh = null;
+	var dw = null;					// integer, width of the destination rectangle
+	var dh = null;					// integer, height of the destination rectangle
+	var sw = null;					// integer, width of the source rectangle
+	var sh = null;					// integer, height of the source rectangle
 	
-	var hlColor = "#ffffff";
+	var hlColor = "#ffffff";			// I dont think these are used may remove
 	var slColor = "#ff0000";
 	
-	var hover = false;
-	var selected = false;
+	var hover = false;				// I dont think these are used may remove
+	var selected = false;				// I dont think these are used may remove
 
-	var def = false;
+	var def = false;				// true if create has been called
 	
 	var that = this;
 	
+	// defines or redefines the tile
+	// _x, _y = coordinates of the destination rectangle
+	// _dw, _dh = dimensions of the destination rectangle
+	// _s, _t = coordinates of the source rectangle
+	// _sw, _sh = dimensions of the source rectangle
 	this.create = function(_x, _y, _dw, _dh, _s, _t, _sw, _sh)
 	{
 		if(isNumber(_x+_y+_dw+_dh+_s+_t+_sw+_sh))
@@ -38,6 +44,8 @@ function Tile()
 		return(1);
 	}
 	
+	// _ctx = destination context
+	// _im = Image, texture map
 	this.draw = function(_ctx, _im)
 	{
 		if(x>0||y>0)
