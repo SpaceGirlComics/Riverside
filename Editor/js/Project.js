@@ -1,3 +1,4 @@
+// © 2015 spacegirl.net
 function Project()
 {
 	var so = null;
