@@ -1,5 +1,7 @@
 // Layer for maps
 // © 2015 spacegirl.net
+// April 15, 2015 - initial submit
+
 function Layer()
 {
 	var tiles = null;				// array of tiles on this layer
