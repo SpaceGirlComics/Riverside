@@ -1,5 +1,5 @@
 // common global functions
-// © 2015 C. M. Turner
+// © 2015 spacegirl.net
 
 // performs an integer division
 function iDivide(num, den)
@@ -17,7 +17,7 @@ function iDivide(num, den)
     return(q);
 }
 
-// checks if value of _n is a number; may remove
+// checks if value of _n is a number. there might be better ways to do this; may remove
 function isNumber(_n)
 {
     return(!isNaN(_n) && isFinite(_n));
