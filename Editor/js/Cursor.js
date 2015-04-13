@@ -1,5 +1,5 @@
 // square cursor for canvases
-// © 2015 C. M. Turner
+// © 2015 spacegirl.net
 function Cursor()
 {
 	var x = null;						// left side coordinate
