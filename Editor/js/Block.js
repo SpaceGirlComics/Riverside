@@ -1,5 +1,6 @@
 // collision block
 // © 2015 spacegirl.net
+// April 15, 2015 - initial submit
 function Block()
 {
 	var x;							// left coordinate
