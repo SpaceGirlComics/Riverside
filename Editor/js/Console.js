@@ -1,5 +1,5 @@
 // pseudo console for outputting messages
-// © 2015 C. M. Turner
+// © 2015 spacegirl.net
 // _c = a div element onto which messages will appear
 function Console(_c)
 {
