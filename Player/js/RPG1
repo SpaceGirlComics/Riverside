@@ -1,15 +1,23 @@
+// game specific global functions and variables
 // © 2015 spacegirl.net
 // April 15, 2015 - initial submit
 
 window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+// the game object (defined in game.js)
 var g = new Game();
 requestAnimationFrame(g.update);
 
+// used to get key presses
 keys = [];
 
+// the players character on screen
 var player = new Character();
+
+// used for controlling the mouse or tablet
 var wp = new Waypoint();
 
+// im no going to decrib the event functions, they're pretty self evident
 function onMouseDown(_e, _t)
 {
 	wp.setActive(true);
@@ -50,6 +58,7 @@ function onKeyDown(_e)
 	wp.setActive(false);
 }
 
+// decodes run length encoded arrays
 function type1RLD(_rletiles)
 {
 	var tiles = [];
@@ -71,6 +80,7 @@ function type1RLD(_rletiles)
 	return(tiles);
 }
 
+// decodes in line command arrays
 function type2RLD(_rletiles)
 {
 	var tiles = [];
