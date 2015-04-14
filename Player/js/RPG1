@@ -1,3 +1,6 @@
+// © 2015 spacegirl.net
+// April 15, 2015 - initial submit
+
 window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 var g = new Game();
 requestAnimationFrame(g.update);
