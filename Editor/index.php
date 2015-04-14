@@ -45,6 +45,118 @@
 				</tr>
 				<tr>
 					<td colspan="5">
+						<div style="display:block; height:200px;" id="File">
+							<input id="fName" style="width:100px;" type="text" placeholder="File Name" />
+							<input id="fSaveAs" type="button" value="Save As" onclick="onSaveAs()" /><br />
+							<select style="width:167px;" id="fSelect">
+							<?php
+								$d = scandir("maps");
+								foreach($d as $f)
+								{
+									if($f != "." && $f != "..")
+									{
+										echo "\t\t\t\t\t\t\t<option>".$f."</option>\n";
+									}
+								}
+							?>
+							</select><br />
+							<input id="fLoad" type="button" value="Load" onclick="onLoadFile()" />
+							<input id="fSave" type="button" value="Save" onclick="onSave()" /><br />
+							<input id="fRaw" name="encode" type="radio" value="0" checked="checked" />Raw<br />
+							<input id="fRLE1" name="encode" type="radio" value="1" />RLE1<br />
+							<input id="fRLE2" name="encode" type="radio" value="2" />RLE2<br />
+							<div id ="reply"></div>
+						</div>
+						<div style="display:none; height:200px;" id="New">
+							<div style="width:25%; float:left">
+								<input id="mName" style="width:167px;" onchange="onNameChange(this)" type="text" placeholder="Map Name"  /><br />
+								<input id="mWidth" style="width:75px;" onchange="onNumberChange(this)" type="text" placeholder="Map Width" />
+								<input id="mHeight" style="width:75px;" onchange="onNumberChange(this)" type="text" placeholder="Map Height" /><br />
+								<input id="sWidth" style="width:75px;" onchange="onNumberChange(this)" type="text" placeholder="Source Width" />
+								<input id="sHeight" style="width:75px;" onchange="onNumberChange(this)" type="text" placeholder="Source Height" /><br />
+								<input id="dWidth" style="width:75px;" onchange="onNumberChange(this)" type="text" placeholder="Dest Width" />
+								<input id="dHeight" style="width:75px;" onchange="onNumberChange(this)" type="text" placeholder="Dest Height" /><br />
+								<select style="width:167px;" id="mTileMap">
+									<option disabled="disabled" selected="selected" />Tile Map</option>
+									<?php
+										$d = scandir("tilemaps");
+										foreach($d as $f)
+										{
+											if($f != "." && $f != "..")
+											{
+												echo "\t\t\t\t\t\t\t<option>".$f."</option>\n";
+											}
+										}
+									?>
+								</select><br />
+								<select style="width:130px;" id="mBgm">
+									<option disabled="disabled" selected="selected" />BGM</option>
+									<option>None</option>
+									<?php
+										$d = scandir("music");
+										$s = "";
+										foreach($d as $f)
+										{
+											
+											$f=substr($f, 0, (strlen ($f)) - (strlen (strrchr($f,'.'))));
+											if($f != "." && $f != ".." && strlen($f)>0 && !strstr($s, $f))
+											{
+												$s .= "\t\t\t\t\t\t\t<option>".$f."</option>\n";
+											}
+										}
+										echo $s;
+									?>
+								</select>
+								<input id="mPlay" type="button" value=">" onclick="onPlay(this, event)" /><br />
+								<input id="mBuild" type="button" value="Build" onclick="onBuild()" />
+								<input id="mAuto" type="button" value="Auto" onclick="onAuto()" />
+							</div>
+							<div style="width:25%; float:left">
+								<select style="width:130px;" id="mWea">
+									<option disabled="disabled" selected="selected" />Weather</option>
+									<option>Sun</option>
+									<option>Night</option>
+									<option>Rainy Night</option>
+									<option>Rain</option>
+									<option>Snow</option>
+									<option>Snowey Night</option>
+									<option>Blizzard</option>
+								</select><br />
+								<select style="width:130px;" id="mBd">
+									<option disabled="disabled" selected="selected" />Backdrop</option>
+									<option>Clear On New Frame</option>
+									<?php
+										$d = scandir("backdrops");
+										$s = "";
+										foreach($d as $f)
+										{
+											
+											$f=substr($f, 0, (strlen ($f)) - (strlen (strrchr($f,'.'))));
+											if($f != "." && $f != ".." && strlen($f)>0 && !strstr($s, $f))
+											{
+												$s .= "\t\t\t\t\t\t\t<option>".$f."</option>\n";
+											}
+										}
+										echo $s;
+									?>
+								</select><br />
+								<input id="tiled" checked="checked" name="bdStrech" type="radio" />
+								<label for="tiled">Tiled</label>
+								<input id="stretch" name="bdStrech" type="radio" />
+								<label for="stretch">Stretch</lable>							
+							</div><br />						
+						</div>
+						<div style="display:none; height:200px;" id="Layers">
+							<select style="width:167px;" id="lSelected" height="5" disabled="disabled" onchange="onLayerChange(event, this)">
+							</select>
+							<input id="lVisable" type="checkbox" disabled="disabled" onchange="onSetLayerVisible(event, this)" /><br />
+							<input id="lName" type="text" placeholder="New Layer Name" disabled="disabled" />
+							<input id="lFill" type="checkbox" disabled="disabled" /><br />
+							<input id="lRaise" style="width:35px;" type="button" value="&uarr;" onclick="onRaiseLayer(event)" disabled="disabled" />
+							<input id="lLower" style="width:35px;" type="button" value="&darr;" onclick="onLowerLayer(event)" disabled="disabled" />
+							<input id="lRemove" style="width:35px;" type="button" value="-" onclick="onRemLayer(event)" disabled="disabled" />
+							<input id="lAdd" style="width:35px;" type="button" value="+" onclick="onAddLayer(event)" disabled="disabled" />
+						</div>
 						<div style="display:none; height:200px;" id="Objs">
 							<select>
 								<option>Chest</option>
@@ -73,81 +185,6 @@
 								</div>
 								
 							</div-->
-						</div>
-						<div style="display:none; height:200px;" id="New">
-							<input id="mName" style="width:167px;" onchange="onNameChange(this)" type="text" placeholder="Map Name"  /><br />
-							<input id="mWidth" style="width:75px;" onchange="onNumberChange(this)" type="text" placeholder="Map Width" />
-							<input id="mHeight" style="width:75px;" onchange="onNumberChange(this)" type="text" placeholder="Map Height" /><br />
-							<input id="sWidth" style="width:75px;" onchange="onNumberChange(this)" type="text" placeholder="Source Width" />
-							<input id="sHeight" style="width:75px;" onchange="onNumberChange(this)" type="text" placeholder="Source Height" /><br />
-							<input id="dWidth" style="width:75px;" onchange="onNumberChange(this)" type="text" placeholder="Dest Width" />
-							<input id="dHeight" style="width:75px;" onchange="onNumberChange(this)" type="text" placeholder="Dest Height" /><br />
-							<select style="width:167px;" id="mTileMap">
-								<option disabled="disabled" selected="selected" />Tile Map</option>
-								<?php
-									$d = scandir("tilemaps");
-									foreach($d as $f)
-									{
-										if($f != "." && $f != "..")
-										{
-											echo "\t\t\t\t\t\t\t<option>".$f."</option>\n";
-										}
-									}
-								?>
-							</select><br />
-							<select style="width:130px;" id="mBgm">
-								<option disabled="disabled" selected="selected" />BGM</option>
-								<option>None</option>
-								<?php
-									$d = scandir("music");
-									$s = "";
-									foreach($d as $f)
-									{
-										
-										$f=substr($f, 0, (strlen ($f)) - (strlen (strrchr($f,'.'))));
-										if($f != "." && $f != ".." && strlen($f)>0 && !strstr($s, $f))
-										{
-											$s .= "\t\t\t\t\t\t\t<option>".$f."</option>\n";
-										}
-									}
-									echo $s;
-								?>
-							</select><input id="mPlay" type="button" value=">" onclick="onPlay(this, event)" /><br />
-							<input id="mBuild" type="button" value="Build" onclick="onBuild()" />
-							<input id="mAuto" type="button" value="Auto" onclick="onAuto()" />
-						</div>
-						<div style="display:none; height:200px;" id="Layers">
-							<select style="width:167px;" id="lSelected" height="5" disabled="disabled" onchange="onLayerChange(event, this)">
-							</select>
-							<input id="lVisable" type="checkbox" disabled="disabled" onchange="onSetLayerVisible(event, this)" /><br />
-							<input id="lName" type="text" placeholder="New Layer Name" disabled="disabled" />
-							<input id="lFill" type="checkbox" disabled="disabled" /><br />
-							<input id="lRaise" style="width:35px;" type="button" value="&uarr;" onclick="onRaiseLayer(event)" disabled="disabled" />
-							<input id="lLower" style="width:35px;" type="button" value="&darr;" onclick="onLowerLayer(event)" disabled="disabled" />
-							<input id="lRemove" style="width:35px;" type="button" value="-" onclick="onRemLayer(event)" disabled="disabled" />
-							<input id="lAdd" style="width:35px;" type="button" value="+" onclick="onAddLayer(event)" disabled="disabled" />
-						</div>
-						<div style="display:block; height:200px;" id="File">
-							<input id="fName" style="width:100px;" type="text" placeholder="File Name" />
-							<input id="fSaveAs" type="button" value="Save As" onclick="onSaveAs()" /><br />
-							<select style="width:167px;" id="fSelect">
-							<?php
-								$d = scandir("maps");
-								foreach($d as $f)
-								{
-									if($f != "." && $f != "..")
-									{
-										echo "\t\t\t\t\t\t\t<option>".$f."</option>\n";
-									}
-								}
-							?>
-							</select><br />
-							<input id="fLoad" type="button" value="Load" onclick="onLoadFile()" />
-							<input id="fSave" type="button" value="Save" onclick="onSave()" /><br />
-							<input id="fRaw" name="encode" type="radio" value="0" checked="checked" />Raw<br />
-							<input id="fRLE1" name="encode" type="radio" value="1" />RLE1<br />
-							<input id="fRLE2" name="encode" type="radio" value="2" />RLE2<br />
-							<div id ="reply"></div>
 						</div>
 						<div style="display:none; height:200px;" id="Console">
 							<div id="con" class="console">
