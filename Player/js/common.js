@@ -1,6 +1,8 @@
+// common global function
 // © 2015 spacegirl.net
 // April 15, 2015 - initial submit
 
+// performs an integer division
 function iDivide(num, den)
 {
     var q = (num -(num%den))/den;
@@ -16,11 +18,13 @@ function iDivide(num, den)
     return(q);
 }
 
+// checks if value of _n is a number. there might be better ways to do this; may remove
 function isNumber(_n)
 {
     return(!isNaN(_n) && isFinite(_n));
 }
 
+// parses a php style query string
 function parseQuery(_query)
 {
 	var vars = [], hash;
@@ -34,11 +38,13 @@ function parseQuery(_query)
 	return vars;
 }
 
+// parses the query string currently in the address bar
 function parseQueryFromURL()
 {
 	return(parseQuery(window.location.href.slice(window.location.href.indexOf('?') + 1)));
 }
 
+// gets the coordinates of the element _t
 function getElementPosition(_t)
 {
 	var x = [];
@@ -55,6 +61,8 @@ function getElementPosition(_t)
 	return(x);
 }
 
+// gets the mouse coodinates on the element _t
+// _cx, _cy = the mouse coordinates on the client window
 function getClickOnElementPosition(_cx, _cy, _t)
 {
 	var x = getElementPosition(_t);
