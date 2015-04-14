@@ -1,5 +1,7 @@
 <?php
 // server script.
+// © 2015 spacegirl.net
+// April 15, 2015 - initial submit
 
 // check if a file name is specified
 if(isset($_POST['n']))
