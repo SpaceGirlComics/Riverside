@@ -1,3 +1,4 @@
+// smallest map element
 // © 2015 spacegirl.net
 // April 15, 2015 - initial submit
 
@@ -16,10 +17,10 @@ function Tile()
 	var f = 0;	// current frame;
 	var m = 0;	// max frame;
 	
-	var frametime =	0.0; 
+	var frametime =	0.0; // time since the last frame update
 	
 	var state = 0;   // current state
-	var that = this;
+	var that = this;	// self reference
 	
 	this.getX = function(){return(x);}
 	this.getY = function(){return(y);}
@@ -53,6 +54,13 @@ function Tile()
 	
 	//this.animate = function(){f++; if(f > m){f=0;}}
 	
+	// defines the tile
+	// _x, _y = int, destination rectangle coordinates
+	// _w, _h = int, destination rectangle dimensions
+	// _s, _t = int, source rectangle coordinates
+	// _u, _v = int, source rectangle dimensions
+	// _f = starting frame
+	// _m = max frame
 	this.define = function(_x, _y, _w, _h, _s, _t, _u, _v, _f, _m)
 	{
 		
