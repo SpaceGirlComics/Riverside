@@ -1,5 +1,7 @@
 <?php
 // Sends data from specified file to the client
+// © 2015 spacegirl.net
+// April 15, 2015 - initial submit
 
 if(isset($_POST['n']))					// get the file name from the string
 {
