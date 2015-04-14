@@ -1,7 +1,7 @@
+// character that appears on screen
 // © 2015 spacegirl.net
 // April 15, 2015 - initial submit
 
-// character that appears on screen
 function Character()
 {
 	var x = 0;					// integer, x coordinate of the destination rectangle
