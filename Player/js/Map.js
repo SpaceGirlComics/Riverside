@@ -1,26 +1,27 @@
+// contains data for a level
 // © 2015 spacegirl.net
 // April 15, 2015 - initial submit
 
 function Map()
 {
-	var layers = [];
-	var tm = new Image();
-	var bm = new Audio();
+	var layers = [];		// the array of layers that comprse this map
+	var tm = new Image();		// the tilemap texture (externalize this?)
+	var bm = new Audio();		// the background music (this too?)
 	
-	var name = "";
-	var src = null;
-	var width = 0;
-	var height = 0;
-	var sw = 0;
-	var sh = 0;
-	var dw = 0;
-	var dh = 0;
+	var name = "";			// name of the map
+	var src = null;			// map file name
+	var width = 0;			// width of the map in tiles
+	var height = 0;			// height of the map in tiles
+	var sw = 0;			// source tile width
+	var sh = 0;			// source tile height
+	var dw = 0;			// destination tile width
+	var dh = 0;			// destination tile height
 	
-	
+	// i dont remember what these are for; may remove
 	var sx = 0;
 	var sy = 0;
 	
-	
+	// map states; rem. try to find a way to make thes values static
 	var UNDEFINED = 0;
 	var REQUEST = 1;
 	var WAITING = 2;
@@ -29,28 +30,28 @@ function Map()
 	var READY = 5;
 	var ERRORED = 6;
 	
-	var state = UNDEFINED;
-	var data;
-	var lastError = "OK";
+	var state = UNDEFINED;			// the current state of the map
+	var data;				// holds the data received from the server
+	var lastError = "OK";			// string describing the last error if we encounter an ERRORED state
 	
+	this.isReady = function(){return(state == READY);}	// returns true if the map is ready
+	this.getReadyState = function(){return(state);}		// gets the current state of the map
+	this.getLastError = function(){return(lastError);}	// returns a description of the most recent error
 	
+	this.getName = function(){return(name);}		// returns the name of the map
+	this.getWidth = function(){return(width);}		// returns the width of the map in tiles
+	this.getHeight = function(){return(height);}		// returns the height of the map in tiles
+	this.getSourceWidth = function(){return(sw);}		// returns the default width of source tiles for this map
+	this.getSourceHeight = function(){return(sh);}		// returns the default height of source tiles for this map
+	this.getDestinationWidth = function(){return(dw);}	// returns the default width of destination tiles for this map
+	this.getDestinationHeight = function(){return(dh);}	// returns the default height of destination tiles for this map
+	this.getPixelWidth = function(){return(width*dw);}	// returns the width of the map in pixels
+	this.getPixelHeight = function(){return(height*dh);}	// returns the height of the map in pixels
+	this.getTilemap = function(){return(tm.src);}		// returns the url of the tilemap
+	this.getBgm = function(){if(bm==null){return("None");}return(bm.src);}	// returns the url of the background music
 	
-	this.isReady = function(){return(state == READY);}
-	this.getReadyState = function(){return(state);}
-	this.getLastError = function(){return(lastError);}
-	
-	this.getName = function(){return(name);}
-	this.getWidth = function(){return(width);}
-	this.getHeight = function(){return(height);}
-	this.getSourceWidth = function(){return(sw);}
-	this.getSourceHeight = function(){return(sh);}
-	this.getDestinationWidth = function(){return(dw);}
-	this.getDestinationHeight = function(){return(dh);}
-	this.getPixelWidth = function(){return(width*dw);}
-	this.getPixelHeight = function(){return(height*dh);}
-	this.getTilemap = function(){return(tm.src);}
-	this.getBgm = function(){if(bm==null){return("None");}return(bm.src);}
-	
+	// loads a new map
+	// _map = string, map file name 
 	this.load = function(_map)
 	{
 		src = _map;
@@ -67,6 +68,7 @@ function Map()
 		}
 	}
 	
+	// makes a request for map data from the server
 	function doRequest()
 	{
 		var rq = new XMLHttpRequest();
@@ -131,6 +133,8 @@ function Map()
 		rq.send("n="+src);
 	}
 	
+	// processes data received from the server
+	// _delta = float, delta time, not used; may remove
 	function doProcessing(_delta)
 	{
 		name = data.name;
@@ -176,6 +180,9 @@ function Map()
 		state = READY;	
 	}
 	
+	// cyclic update
+	// _delta = float, delta time
+	// _dx, _dy, = tranlated xy
 	this.update = function(_delta, _dx, _dy)
 	{
 		switch(state)
