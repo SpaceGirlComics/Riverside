@@ -1,5 +1,5 @@
 <?php
-// server script.
+// server script. Saves map to a file on the server
 // © 2015 spacegirl.net
 // April 15, 2015 - initial submit
 
