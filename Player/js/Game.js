@@ -1,35 +1,40 @@
+// core game object
 // © 2015 spacegirl.net
 // April 15, 2015 - initial submit
 
 function Game()
 {
+	// game states; more to come
 	var INIT	= 0x00000000;
 	var TITLE	= 0x00000001;
 	var INGAME	= 0x00000002;
 	var LOADING	= 0x00000003;
+	
+	// game states as strings for when dev mode is on
 	var states	= ["INIT", "TITLE", "INGAME", "LOADING"];
 
-	var devMode	= false;
+	var devMode	= false;			// when true displays info for debugging and refinement purposes
 	
-	var state = INIT;
-	var phase = 0;
+	var state = INIT;				// current came state
+	var phase = 0;					// sub state, not used yet but most likeley will be
 	
-	var images = [];
+	var images = [];				// array of images in use, not used yet but most likeley will be
 	
-	var totalTime = 0;
-	var prevTime = 0;
-	var delta = 0;
+	var totalTime = 0;				// time passed since game started
+	var prevTime = 0;				// time of the previous cycle
+	var delta = 0;					// time since the previous cyle
 	
 	var dx = 0;
 	var dy = 0;
 	
-	var can;
-	var ctx;
+	var can;					// canvas element
+	var ctx;					// its context
 	
-	var map = null;	
+	var map = null;					// map object
 	
-	var that = this;
+	var that = this;				// self reference; trying to get rid of these
 	
+	// writes info to the canvas
 	function drawDevMode()
 	{
 		ctx.fillStyle = "#ffffff";
@@ -56,6 +61,7 @@ function Game()
 		wp.draw(ctx);
 	}
 	
+	// initializes the game
 	function doInitialize()
 	{
 		can = document.getElementById("can")
@@ -72,6 +78,7 @@ function Game()
 		}
 	}
 	
+	// loads resources
 	function doLoading()
 	{
 		if(map == null)
@@ -128,6 +135,9 @@ function Game()
 		
 	}
 	
+	
+	// cyclic update function
+	// _time = time stamp
 	this.update = function(_time)
 	{
 		delta = (_time - prevTime)/1000.0;
