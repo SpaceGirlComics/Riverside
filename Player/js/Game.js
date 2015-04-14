@@ -1,3 +1,6 @@
+// © 2015 spacegirl.net
+// April 15, 2015 - initial submit
+
 function Game()
 {
 	var INIT	= 0x00000000;
