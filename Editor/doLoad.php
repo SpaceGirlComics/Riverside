@@ -1,5 +1,7 @@
 <?php
 // server script. Loads a map as a string and sends it to the clients
+// © 2015 spacegirl.net
+// April 15, 2015 - initial submit
 
 // check for the file name in the qstring
 if(isset($_POST['n']))
