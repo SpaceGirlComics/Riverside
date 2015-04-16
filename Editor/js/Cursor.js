@@ -4,20 +4,14 @@
 
 function Cursor()
 {
-	var x = null;						// left side coordinate
-	var y = null;						// top side coordinate
-	var w = null;						// width of cursor
-	var h = null;						// height of cursor
+	var b = new Box.js					// cursor rectangle
 	var c = null;						// colour of cursor, expressed as a hexvalue in a string
 	
 	var that = this;					// references the current instance. not very useful; may remove
 	
 	this.create = function(_x, _y, _w, _h, _c)		// defines or redefines cursor
 	{
-		x = _x;
-		y = _y;
-		w = _w;
-		h = _h;
+		b.create(_x, _y, _w, _h);
 		c = _c;
 	}
 	
@@ -25,15 +19,15 @@ function Cursor()
 	{
 		_ctx.strokeStyle = c;
 		_ctx.beginPath()
-		_ctx.rect(x, y, w, h);
+		_ctx.rect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
 		_ctx.stroke();
 	}
 	
 	// regular retrieval functions 
-	this.getX = function(){return(x);}
-	this.getY = function(){return(y);}
-	this.getWidth = function(){return(w);}
-	this.getHeight = function(){return(h);}
+	this.getX = function(){return(b.getX());}
+	this.getY = function(){return(b.getY());}
+	this.getWidth = function(){return(b.getWidth());}
+	this.getHeight = function(){return(b.getHeight());}
 	this.getColor = function(){return(c);}
 	
 	// regular mutators
