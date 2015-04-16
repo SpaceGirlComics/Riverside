@@ -156,6 +156,11 @@
 							<input id="lLower" style="width:35px;" type="button" value="&darr;" onclick="onLowerLayer(event)" disabled="disabled" />
 							<input id="lRemove" style="width:35px;" type="button" value="-" onclick="onRemLayer(event)" disabled="disabled" />
 							<input id="lAdd" style="width:35px;" type="button" value="+" onclick="onAddLayer(event)" disabled="disabled" />
+							<input id="tiled" checked="checked" name="bdStrech" type="radio" />
+							<input id="lbg" type="checkbox" />
+							<label for="lbg">BG</label>
+							<input id="lwe" type="checkbox" />
+							<label for="lwe">WE</lable>
 						</div>
 						<div style="display:none; height:200px;" id="Objs">
 							<select>
