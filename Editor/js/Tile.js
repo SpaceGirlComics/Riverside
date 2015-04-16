@@ -4,21 +4,8 @@
 
 function Tile()
 {
-	var x = null;					// integer, x coordinate of the destination rectangle
-	var y = null;					// integer, y coordinate of the destination rectangle
-	var s = null;					// integer, x coordinate of the source rectangle
-	var t = null;					// integer, y coordinate of the source rectangle
-	
-	var dw = null;					// integer, width of the destination rectangle
-	var dh = null;					// integer, height of the destination rectangle
-	var sw = null;					// integer, width of the source rectangle
-	var sh = null;					// integer, height of the source rectangle
-	
-	var hlColor = "#ffffff";			// I dont think these are used may remove
-	var slColor = "#ff0000";
-	
-	var hover = false;				// I dont think these are used may remove
-	var selected = false;				// I dont think these are used may remove
+	var d = new Box();
+	var s = new Box();
 
 	var def = false;				// true if create has been called
 	
@@ -33,14 +20,8 @@ function Tile()
 	{
 		if(isNumber(_x+_y+_dw+_dh+_s+_t+_sw+_sh))
 		{
-			x = _x;
-			y = _y;
-			s = _s;
-			t = _t;
-			dw = _dw;
-			dh = _dh;
-			sw = _sw;
-			sh = _sh;
+			d.create(_x, _y, _dw, _dh);
+			s.create(_s, _t, _sw, _sh);
 			def = true;
 			return(0);
 		}
@@ -53,43 +34,54 @@ function Tile()
 	{
 		if(x>0||y>0)
 		{
-			_ctx.drawImage(_im, x, y, dw, dh, s, t, sw, sh);
+			_ctx.drawImage(_im, 
+					s.getX(),
+					s.getY(),
+					s.getWidth(),
+					s.getHeight(),
+					d.getX(),
+					d.getY(),
+					d.getWidth(),
+					d.getHeight());
 		}
 	}
 	
 	this.isDefined = function(){return(def);}
 	
-	this.getX = function(){return(x);}
-	this.getY = function(){return(y);}
-	this.getS = function(){return(s);}
-	this.getT = function(){return(t);}
-	this.getDw = function(){return(dw);}
-	this.getDh = function(){return(dh);}
-	this.getSh = function(){return(sh);}
-	this.getSw = function(){return(sw);}
+	this.getSourceBox = function(){return(s);}
+	this.getDestinationBox = function(){return(d);}
 	
-	this.setX = function(_x){if(isNumber(_x)){x = _x;}}
-	this.setY = function(_y){if(isNumber(_y)){y = _y;}}
-	this.setS = function(_s){if(isNumber(_s)){s = _s;}}
-	this.setT = function(_t){if(isNumber(_t)){t = _t;}}
-	this.setDw = function(_w){if(isNumber(_w)){dw = _w;}}
-	this.setDh = function(_h){if(isNumber(_h)){dh = _h;}}
-	this.setSh = function(_h){if(isNumber(_h)){sh = _h;}}
-	this.setSw = function(_w){if(isNumber(_w)){sw = _w;}}
-	this.setDimensions = function(_x, _y){if(isNumber(_x+_y)){that.setX(_x);that.setY(_y);}}
-	this.setClip = function(_x, _y){if(isNumber(_x+_y)){that.setX(_x);that.setY(_y);}}
+	this.getX = function(){return(d.getX());}
+	this.getY = function(){return(d.getY());}
+	this.getDw = function(){return(d.getWidth());}
+	this.getDh = function(){return(d.getHeight());}
 	
-	this.translate = function(_x, _y){if(isNumber(_x+_y)){x+=_x; y+=_y;}}
-	this.resize = function(_s){if(isNumber(_s)){x*=_s; y*=_s;}}
+	this.getS = function(){return(s.getX());}
+	this.getT = function(){return(s.getY());}
+	this.getSw = function(){return(s.getWidth());}
+	this.getSh = function(){return(s.getHeight());}
 	
-	this.shift = function(_x, _y){if(isNumber(_x+_y)){s+=_x; t+=_y;}}
-	this.zoom = function(_s){if(isNumber(_s)){s*=_s; t*=_s;}}
+	this.setX = function(_x){d.setX(_x);}
+	this.setY = function(_y){d.setY(_y);}
+	this.setDw = function(_w){d.setWidth(_w);}
+	this.setDh = function(_h){d.setHeight(_h);}
 	
-	this.setSelected = function(_s){selected = _s;}
+	this.setS = function(_s){s.setX(_s);}
+	this.setT = function(_t){s.setY(_t);}
+	this.setSw = function(_w){s.setWidth(_w);}
+	this.setSh = function(_h){s.setHeight(_h);}
+	
+	this.setDimensions = function(_x, _y){d.setDimensions(_x, _y);}
+	this.translate = function(_x, _y){d.translate(_x, _y);}
+	this.resize = function(_s){d.scale(_s);}
+	
+	this.setClip = function(_x, _y){s.setDimensions(_x, _y);}
+	this.shift = function(_x, _y){s.translate(_x, _y);}
+	this.zoom = function(_s){s.scale(_s);}
 	
 	this.getTileNumber = function(_tw)
 	{
-		return(iDivide(y, sh)*iDivide(_tw, sw)+iDivide(x, sw));
+		return(iDivide(s.getY(), s.getWidth())*iDivide(_tw, s.getWidth())+iDivide(s.getX(), s.getWidth()));
 	}
 	
 	this.destroy = function()
