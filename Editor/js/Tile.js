@@ -4,12 +4,12 @@
 
 function Tile()
 {
-	var d = new Box();
-	var s = new Box();
+	var d = new Box();				// Box, destination rectangle
+	var s = new Box();				// Box, source rectangle
 
 	var def = false;				// true if create has been called
 	
-	var that = this;
+	// var that = this;
 	
 	// defines or redefines the tile
 	// _x, _y = coordinates of the destination rectangle
