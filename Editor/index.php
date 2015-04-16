@@ -8,6 +8,8 @@
 		<link rel="stylesheet" href="css/editor.css" type="text/css" />
 		
 		<script src="js/common.js" type="text/javascript"></script>
+		<script src="js/Box.js" type="text/javascript"></script>
+		<script src="js/Circle.js" type="text/javascript"></script>
 		<script src="js/Block.js" type="text/javascript"></script>
 		<script src="js/rle.js" type="text/javascript"></script>
 		<script src="js/Console.js" type="text/javascript"></script>
