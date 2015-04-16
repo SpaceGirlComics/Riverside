@@ -16,7 +16,7 @@ function Layer()
 	
 	var vis = null;					// boolean, true if the layer is visible
 	
-	var that = this;				// self reference; may remove later
+	// var that = this;				// self reference; may remove later
 	var def = false;				// boolean, true if a create function has been called
 
 	var obj = [];					// arrat, game objects on this layer 
@@ -30,7 +30,7 @@ function Layer()
 	// _sw = source rectangle width
 	// _sh = source rectangle height
 	// _dw = destination rectangle width
-	// _dh = destination re3ctangle height
+	// _dh = destination rectangle height
 	this.createFromArray = function(_n, _r, _im, _w, _h, _sw, _sh, _dw, _dh)
 	{
 		tiles = [];
@@ -53,7 +53,7 @@ function Layer()
 			for(var b = 0; b < w; b++)
 			{
 				tiles[a][b] = new Tile();
-				tiles[a][b].create((_r[ti] % iDivide(tw, sw))*sw, iDivide(_r[ti], iDivide(tw, sw))*sh, sw, sh, b*dw, a*dh, dw, dh);
+				tiles[a][b].create(b*dw, a*dh, dw, dh, (_r[ti] % iDivide(tw, sw))*sw, iDivide(_r[ti], iDivide(tw, sw))*sh, sw, sh);
 				ti++;
 			}
 		}
@@ -91,7 +91,7 @@ function Layer()
 			for(var b = 0; b < w; b++)
 			{
 				tiles[a][b] = new Tile();
-				tiles[a][b].create(_fx, _fy, sw, sh, b*dw, a*dh, dw, dh);
+				tiles[a][b].create(b*dw, a*dh, dw, dh, _fx, _fy, sw, sh);
 			}
 		}
 		vis = true;
@@ -146,8 +146,6 @@ function Layer()
 	this.setTile = function(_x, _y, _s, _t)
 	{
 		tiles[_y][_x].setClip(_s, _t);
-		//con.message(tiles[_y][_x].getS()+", "+tiles[_y][_x].getT());
-		//con.message(tiles[0][0].getS()+", "+tiles[0][0].getT());
 	}
 	
 	// gets the name of the layer
