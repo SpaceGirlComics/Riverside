@@ -1,3 +1,7 @@
+// a simple 2d Circle class
+// © 2015 spacegirl.net
+// April 16, 2015 - initial submit
+
 function Circle()
 {
   var x;
