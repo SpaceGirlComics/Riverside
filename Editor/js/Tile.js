@@ -32,7 +32,7 @@ function Tile()
 	// _im = Image, texture map
 	this.draw = function(_ctx, _im)
 	{
-		if(x>0||y>0)
+		if(s.getX()>0||s.getY()>0)
 		{
 			_ctx.drawImage(_im, 
 					s.getX(),
