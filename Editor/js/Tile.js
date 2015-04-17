@@ -75,7 +75,7 @@ function Tile()
 	this.translate = function(_x, _y){d.translate(_x, _y);}
 	this.resize = function(_s){d.scale(_s);}
 	
-	this.setClip = function(_x, _y){s.setDimensions(_x, _y);}
+	this.setClip = function(_x, _y){s.setPosition(_x, _y);}
 	this.shift = function(_x, _y){s.translate(_x, _y);}
 	this.zoom = function(_s){s.scale(_s);}
 	
