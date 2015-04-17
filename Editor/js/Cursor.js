@@ -33,10 +33,10 @@ function Cursor()
 	// regular mutators
 	this.setExactX = function(_x){b.setX(_x);}		// sets x without snap to grid, not very useful; may remove
 	this.setExactY = function(_y){b.setY(_y);}		// sets y without snap to grid, not very useful; may remove
-	this.setX = function(_x){b.setX(iDivide(_x, w)*w);}	// sets x alighned to map grid
-	this.setY = function(_y){b.setY(iDivide(_y, h)*h);}	// sets y alighned to map grid
+	this.setX = function(_x){b.setX(iDivide(_x, b.getWidth())*b.getWidth());}	// sets x alighned to map grid
+	this.setY = function(_y){b.setY(iDivide(_y, b.getHeight())*b.getHeight());}	// sets y alighned to map grid
 	this.translate = function(_x, _y){b.translate(_x, _y);}	// moves the cursor relative to its current position, no snap, not very useful; may remove
-	this.setPosition = function(_x, _y){b.setPosition(iDivide(_x, w)*w, iDivide(_y, h)*h);} // sets cursor position with respect to the point of origin, snaps
+	this.setPosition = function(_x, _y){b.setPosition(iDivide(_x, b.getWidth())*b.getWidth(), iDivide(_y, b.getHeight())*b.getHeight());} // sets cursor position with respect to the point of origin, snaps
 	this.setExactPosition = function(_x, _y){b.setPosition(_x, _y);} // sets cursor position with respect to the point of origin, no snap; may remove
 	this.setWidth = function(_w){b.setWidth(_w);}		// sets the width to _w
 	this.setHeight = function(_h){b.setHeight(_h);}		// sets the height to _h
