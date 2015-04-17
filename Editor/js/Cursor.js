@@ -4,7 +4,7 @@
 
 function Cursor()
 {
-	var b = new Box.js					// cursor rectangle
+	var b = new Box();					// cursor rectangle
 	var c = null;						// colour of cursor, expressed as a hexvalue in a string
 	
 	// var that = this;					// references the current instance. not very useful; may remove
