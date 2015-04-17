@@ -22,8 +22,8 @@ function Box()
   
   this.getX = function(){return(x);}
   this.getY = function(){return(y);}
-  this.getWidth = function(return(w);}
-  this.getHeight = function(return(h);}
+  this.getWidth = function(){return(w);}
+  this.getHeight = function(){return(h);}
   this.getArea = function(){return(w*h);}
   
   this.setX = function(_x){x = _x;}
