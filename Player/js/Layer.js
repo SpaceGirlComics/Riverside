@@ -62,6 +62,37 @@ function Layer()
 		
 	}
 	
+	//checkes what tiles atre being collided with _obj, obj must have getX and getY functions
+	this.check = function(_obj)
+	{
+		var b = iDivide(_obj.getX(), dw);
+		var a = iDivide(_obj.getY(), dh);
+		var c = 0x00000000;
+		
+		tiles[a][b].mark();
+		
+		/*if(tiles[a][b].getT() > 0)
+		{
+			if(player.getX()+5 < tiles[a][b].getX() + tiles[a][b].getWidth())
+			{
+				c |= 0x00000001;
+			}
+			if(player.getX() + player.getWidth() -5 > tiles[a][b].getX())
+			{
+				c |= 0x00000002;
+			}
+			if((player.getY()+player.getHeight()/2)+5 < tiles[a][b].getY() + tiles[a][b].getHeight())
+			{
+				c |= 0x00000004;
+			}
+			if(player.getY() + player.getHeight() -5 > tiles[a][b].getY())
+			{
+				c |= 0x00000008;
+			}
+		}*/
+		return(c);
+	}
+	
 	this.draw = function(_img, _ctx)
 	{
 		for(var y = dy; y < height && y < dy+36; y++)
