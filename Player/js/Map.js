@@ -197,6 +197,8 @@ function Map()
 	// _dx, _dy, = tranlated xy
 	this.update = function(_delta, _dx, _dy)
 	{
+		sx = _dx;
+		sy = _dy;
 		switch(state)
 		{
 			case REQUEST:
