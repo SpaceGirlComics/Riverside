@@ -34,6 +34,12 @@ function Game()
 	
 	var that = this;				// self reference; trying to get rid of these
 	
+	// retruns the current map
+	this.getMap = function()
+	{
+		return(map);
+	}
+	
 	// writes info to the canvas
 	function drawDevMode()
 	{
