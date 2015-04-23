@@ -129,6 +129,26 @@ function Layer()
 		_ctx = c;
 	}
 	
+	// selects an object if the mouse is over it
+	// _x, _y = mouse coordinates
+	this.selectCheck = function(_x, _y)
+	{
+		var b = -1;
+		for(var a = 0; a < obj.length; a++)
+		{
+			obj[a].setSelected(false);
+			if(_x >= obj[a].getX() && _x <= (obj[a].getX() + obj[a].getWidth()))
+			{
+				if(_y >= obj[a].getY() && _y <= (obj[a].getY() + obj[a].getHeight()))
+				{
+					b = a;
+					obj[a].setSelected(true);
+				}
+			} 
+		}
+		return(b);
+	}
+	
 	// adds a game object to the object list
 	// _o = game object
 	this.addObject = function(_o)
