@@ -22,8 +22,8 @@ function onMouseDown(_e, _t)
 {
 	wp.setActive(true);
 	wp.setPinned(true);
-	wp.setX(_e.clientX - _t.getBoundingClientRect().left);
-	wp.setY(_e.clientY - _t.getBoundingClientRect().top);
+	wp.setX((_e.clientX - _t.getBoundingClientRect().left)-g.getMap().getDX());
+	wp.setY((_e.clientY - _t.getBoundingClientRect().top)-g.getMap().getDY());
 }
 
 function onMouseUp(_e, _t)
@@ -40,8 +40,10 @@ function onMouseMove(_e, _t)
 {
 	if(wp.isPinned())
 	{
-		wp.setX(_e.clientX - _t.getBoundingClientRect().left);
-		wp.setY(_e.clientY - _t.getBoundingClientRect().top);
+		wp.setX((_e.clientX - _t.getBoundingClientRect().left)-g.getMap().getDX());
+		wp.setY((_e.clientY - _t.getBoundingClientRect().top)-g.getMap().getDY());
+		//wp.setX(_e.clientX - _t.getBoundingClientRect().left);
+		//wp.setY(_e.clientY - _t.getBoundingClientRect().top);
 	}
 }
 
