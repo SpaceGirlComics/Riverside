@@ -139,6 +139,7 @@ function onBuild()
 		}
 		
 		proj = new Project();
+		//d.getElementById("bkdrp").style.background = "http://www.spacegirl.net/projects/edit/backdrops/"+ d.getElementById("mBd").value +".gif";
 		proj.create(mn, mw, mh, sw, sh, dw, dh, "tilemaps/"+tm, "music/"+bm, d.getElementById("source"), d.getElementById("dest"));
 		setLayersActivate(false);
 	}
