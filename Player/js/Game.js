@@ -167,6 +167,10 @@ function Game()
 		{
 			
 			map.draw(ctx);
+			if(devMode)
+			{
+				wp.draw(ctx);
+			}
 			
 		}
 		ctx.restore();
