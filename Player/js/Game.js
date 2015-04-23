@@ -165,7 +165,6 @@ function Game()
 		map.update(delta, dx, dy);
 		if(map.getReadyState() == 5)
 		{
-			
 			map.draw(ctx);
 			if(devMode)
 			{
