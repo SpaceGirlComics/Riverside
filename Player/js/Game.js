@@ -117,6 +117,43 @@ function Game()
 		if(dx > 0){dx = 0;}
 		if(dy > 0){dy = 0;}
 		
+		if(wp.isActive())
+		{
+			if(player.getX() > wp.getX())
+			{
+				player.sendMessage(0, 0, 37);
+			}
+			else if(player.getX() < wp.getX())
+			{
+				player.sendMessage(0, 0, 39);
+			}
+			
+			if(player.getY() > wp.getY())
+			{
+				player.sendMessage(0, 0, 38);
+			}
+			else if(player.getY() < wp.getY())
+			{
+				player.sendMessage(0, 0, 40);
+			}
+
+			/*if(wp.isPinned())
+			{
+				wp.translate((-dx/2)*delta, (-dy/2)*delta);
+			}*/
+				
+			if(player.getX() - wp.getX() < 2 && player.getX() - wp.getX() > -2)
+			{
+				wp.setX(player.getX());
+				player.sendMessage(1, 0, 39);
+			}
+			if(player.getY() - wp.getY() < 2 && player.getY() - wp.getY() > -2)
+			{
+				wp.setY(player.getY());
+				player.sendMessage(1, 0, 38);
+			}
+		}
+		
 		ctx.translate(iDivide(dx, 1), iDivide(dy, 1));
 		
 		map.update(delta, dx, dy);
