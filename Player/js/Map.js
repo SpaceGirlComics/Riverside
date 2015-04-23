@@ -180,6 +180,18 @@ function Map()
 		state = READY;	
 	}
 	
+	// get x translation
+	this.getDX = function()
+	{
+		return(sx);
+	}
+	
+	// get y translation
+	this.getDY = function()
+	{
+		return(sy);
+	}
+	
 	// cyclic update
 	// _delta = float, delta time
 	// _dx, _dy, = tranlated xy
