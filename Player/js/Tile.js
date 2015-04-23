@@ -22,6 +22,8 @@ function Tile()
 	var state = 0;   // current state
 	var that = this;	// self reference
 	
+	var marked = false;	// temporary, used to highlight tiles umder player
+	
 	this.getX = function(){return(x);}
 	this.getY = function(){return(y);}
 	this.getWidth = function(){return(w);}
@@ -54,6 +56,9 @@ function Tile()
 	
 	//this.animate = function(){f++; if(f > m){f=0;}}
 	
+	this.mark = function(){marked = true;}
+	this.unmark = function(){marked = false;}
+	
 	// defines the tile
 	// _x, _y = int, destination rectangle coordinates
 	// _w, _h = int, destination rectangle dimensions
@@ -75,6 +80,14 @@ function Tile()
 	this.draw = function(_img, _ctx)
 	{
 		_ctx.drawImage(_img, s, t, u, v, x, y, w, h); 
+		if(marked)
+		{
+			_ctx.strokeStyle="#ffffff";
+			_ctx.beginPath();
+			_ctx.rect(x,y,w,h);
+			_ctx.stroke();
+			marked = false;
+		}
 	}
 	
 	this.update = function(_delta)
