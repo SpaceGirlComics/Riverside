@@ -168,6 +168,12 @@ function Map()
 					break;
 				}
 				
+				case 3:
+				{
+					layers[x].create(data.layers[x].name, type3RLD(data.layers[x].tiles), tm.width, width, height, sw, sh, dw, dh);
+					break;
+				}
+				
 				default:
 				{
 					state = ERRORED;
