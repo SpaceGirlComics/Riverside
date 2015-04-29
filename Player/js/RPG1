@@ -11,13 +11,13 @@ requestAnimationFrame(g.update);
 // used to get key presses
 keys = [];
 
-// the players character on screen
+// the players character on screen (defined in Character.js)
 var player = new Character();
 
-// used for controlling the mouse or tablet
+// used for controlling the mouse or tablet (defined in waypoint.js)
 var wp = new Waypoint();
 
-// im no going to decrib the event functions, they're pretty self evident
+// im not going to decrib the event functions, they're pretty self evident
 function onMouseDown(_e, _t)
 {
 	wp.setActive(true);
@@ -47,12 +47,46 @@ function onMouseMove(_e, _t)
 	}
 }
 
+function showConsole()
+{
+	var c = document.getElementById("cons");
+	
+	if(c.style.display == "none")
+	{
+		c.style.display = "block";
+		c.style.opacity = 1.0;
+		c.style.top= "-100px";
+		document.getElementById("com").focus();
+		//c.className = "console VisCons";
+	}
+	else
+	{
+		c.style.display = "none";
+		c.style.opacity = 0.0;
+		c.style.top= "-70px";
+		document.getElementById("com").blur();
+		//c.className = "console";
+	}
+}
+
 function onKeyUp(_e)
 {
 	//keys[_e.keyCode] = false;
 	//player.setState(1);
+	if(_e.keyCode == 13)
+	{
+		if(document.getElementById("com") == document.activeElement)
+		{
+			command();
+		}
+	}
+	if(_e.keyCode == 192)
+	{
+		showConsole();
+	}
 	player.sendMessage(1, 0, _e.keyCode);
 }
+
 function onKeyDown(_e)
 {
 	//keys[_e.keyCode] = true;
