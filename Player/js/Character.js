@@ -60,7 +60,8 @@ function Character()
 	}
 	
 	this.isReady = function(){return(r>LOADING);}		// returns true if character is ready to be drawn
-	
+	this.isWalking = function(){return(r==WALKING);}
+		
 	this.getX = function(){return(x);}			// returns the x coordinate of the destination rect
 	this.getY = function(){return(y);}			// returns the y coordinate of the destination rect
 	this.getWidth = function(){return(w);}			// returns the width of the destination rect
@@ -188,8 +189,39 @@ function Character()
 	// _delta = delta time
 	function doWalking(_delta)
 	{
-		x += vec[0]*_delta;
-		y += vec[1]*_delta;
+		if(wp.isActive())
+		{
+			if(x >= wp.getX() && x + vec[0]*_delta < wp.getX())
+			{
+				x = wp.getX();
+			}
+			else if(x + w <= wp.getX() && x + w + vec[0]*_delta > wp.getX())
+			{
+				x = wp.getX() - w;
+			}
+			else
+			{
+				x += vec[0]*_delta;
+			}
+			
+			if(y >= wp.getY() && y + vec[1]*_delta < wp.getY())
+			{
+				y = wp.getY();
+			}
+			else if(y + h <= wp.getY() && y + h + vec[0]*_delta > wp.getY())
+			{
+				y = wp.getY() - h;
+			}
+			else
+			{
+				y += vec[1]*_delta;
+			}
+		}
+		else
+		{
+			x += vec[0]*_delta;
+			y += vec[1]*_delta;
+		}
 	}
 	
 	// cyclic update function
