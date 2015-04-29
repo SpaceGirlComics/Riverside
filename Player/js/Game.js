@@ -78,8 +78,6 @@ function Game()
 		ctx.fillText("Position: "+player.getX()+", "+player.getY(), 410, 10);
 		ctx.fillText("dx, dy: "+dx+", "+dy, 410, 26);
 		ctx.fillText("Waypoint: "+wp.isActive()+", "+wp.isPinned(), 410, 42);
-		
-		wp.draw(ctx);
 	}
 	
 	// initializes the game
@@ -127,7 +125,6 @@ function Game()
 		ctx.save();
 		ctx.fillStyle = "#000000";
 		ctx.fillRect(-1, -1, 901, 600);
-		
 		player.update(delta);
 		
 		dx = -(player.getX() - (can.width/2 - player.getWidth()/2));
@@ -185,7 +182,6 @@ function Game()
 			{
 				wp.draw(ctx);
 			}
-			
 		}
 		ctx.restore();
 		
