@@ -65,32 +65,65 @@ function Layer()
 	//checkes what tiles atre being collided with _obj, obj must have getX and getY functions
 	this.check = function(_obj)
 	{
-		var b = iDivide(_obj.getX(), dw);
+	var b = iDivide(_obj.getX(), dw);
 		var a = iDivide(_obj.getY(), dh);
-		var c = 0x00000000;
+		var c = iDivide(_obj.getWidth(), dw);
+		var d = iDivide(_obj.getHeight(), dh);
 		
-		tiles[a][b].mark();
-		
-		/*if(tiles[a][b].getT() > 0)
+		for(var f = a; f <= a+d; f++)
 		{
-			if(player.getX()+5 < tiles[a][b].getX() + tiles[a][b].getWidth())
+			for(var g= b; g<= b+c; g++)
 			{
-				c |= 0x00000001;
+				if(f >=0 && g >=0 && f < height && g < width && tiles[f][g])
+				{
+					if(_obj.isWalking() && (tiles[f][g].getS() > 0 && tiles[f][g].getT() > 0))
+					{
+						switch(_obj.getFace())
+						{
+							case 0:
+							{
+								if(_obj.getY()+ _obj.getHeight() > tiles[f][g].getY() && _obj.getY()+ _obj.getHeight() < tiles[f][g].getY() + tiles[f][g].getHeight())
+								{
+									tiles[f][g].mark();
+									_obj.setY(tiles[f][g].getY()-_obj.getHeight()-1);
+								}
+								break;
+							}
+							
+							case 1:
+							{
+								if(_obj.getX() > tiles[f][g].getX() && _obj.getX() < tiles[f][g].getX() + tiles[f][g].getWidth())
+								{
+									tiles[f][g].mark();
+									_obj.setX(tiles[f][g].getX()+tiles[f][g].getWidth()+1);
+								}
+								break;
+							}
+							
+							case 2:
+							{
+								if(_obj.getY() > tiles[f][g].getY() && _obj.getY() < tiles[f][g].getY() + tiles[f][g].getHeight())
+								{
+									tiles[f][g].mark();
+									_obj.setY(tiles[f][g].getY() + tiles[f][g].getHeight()+1);
+								}
+								break;
+							}
+							
+							case 3:
+							{
+								if(_obj.getX() + _obj.getWidth() > tiles[f][g].getX() && _obj.getX() + _obj.getWidth() < tiles[f][g].getX() + tiles[f][g].getWidth())
+								{
+									tiles[f][g].mark();
+									_obj.setX(tiles[f][g].getX()-_obj.getWidth()-1);
+								}
+								break;
+							}
+						}
+					}
+				}
 			}
-			if(player.getX() + player.getWidth() -5 > tiles[a][b].getX())
-			{
-				c |= 0x00000002;
-			}
-			if((player.getY()+player.getHeight()/2)+5 < tiles[a][b].getY() + tiles[a][b].getHeight())
-			{
-				c |= 0x00000004;
-			}
-			if(player.getY() + player.getHeight() -5 > tiles[a][b].getY())
-			{
-				c |= 0x00000008;
-			}
-		}*/
-		return(c);
+		}
 	}
 	
 	this.draw = function(_img, _ctx)
