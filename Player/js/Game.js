@@ -34,6 +34,21 @@ function Game()
 	
 	var that = this;				// self reference; trying to get rid of these
 	
+	// processes or dispatches commands from external sources
+	// _op = op code
+	// _wparam, _lparam = operands 
+	this.sendMessage = function(_op, _wparam, _lparam)
+	{
+		switch(_op)
+		{
+			case 0:
+			{
+				devMode = !devMode;
+				break;
+			}
+		}
+	}
+	
 	// retruns the current map
 	this.getMap = function()
 	{
