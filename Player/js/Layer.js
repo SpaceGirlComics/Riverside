@@ -65,7 +65,7 @@ function Layer()
 	//checkes what tiles atre being collided with _obj, obj must have getX and getY functions
 	this.check = function(_obj)
 	{
-	var b = iDivide(_obj.getX(), dw);
+		var b = iDivide(_obj.getX(), dw);
 		var a = iDivide(_obj.getY(), dh);
 		var c = iDivide(_obj.getWidth(), dw);
 		var d = iDivide(_obj.getHeight(), dh);
@@ -162,7 +162,10 @@ function Layer()
 			for(var x = 0; x < width; x++)
 			{
 				//alert(_delta);
-				tiles[y][x].update(_delta);
+				if(tiles[y][x].getT() >0)
+				{
+					tiles[y][x].update(_delta);
+				}
 			}
 		}
 	}
