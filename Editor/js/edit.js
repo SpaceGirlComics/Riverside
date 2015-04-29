@@ -246,6 +246,7 @@ function onSelect(_t, _e)
 	document.getElementById("New").style.display = "none";
 	document.getElementById("Layers").style.display = "none";
 	document.getElementById("Console").style.display = "none";
+	document.getElementById("Patterns").style.display = "none";
 	
 	if(_t.innerHTML == "Objs")
 	{
@@ -590,7 +591,14 @@ function onDestOut(_e, _t)
 	//con.message("The Mouse Has Left The Destination Element");
 }
 
-////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function onPatDown(_e, _t){}
+function onPatUp(_e, _t){}
+function onPatOut(_e, _t){}
+function onPatMove(_e, _t){}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // tablet functions to be implemented later
 function onSourceTouchStart(_e){}
