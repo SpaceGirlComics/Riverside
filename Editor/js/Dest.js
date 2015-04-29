@@ -45,7 +45,7 @@ function Dest()
 	// _dw = integer greater than 0, destination rectangle width
 	// _dh = integer greater than 0, destination rectangle height
 	this.create = function(_dc, _w, _h, _sw, _sh, _dw, _dh)
-	{							
+	{
 		can = _dc;
 		can.style = "cursor:none;";
 		ctx = can.getContext('2d');
@@ -87,7 +87,7 @@ function Dest()
 		sLay = 0;
 	}
 	
-	// removes element at index _i and returns it 
+	// removes element at index _i and returns it
 	this.removeLayer = function(_i)
 	{
 		return(layers.splice(_i,1));
@@ -115,90 +115,22 @@ function Dest()
 		}
 	}
 	
-	// adds an game object to the array
-	// _obj = integer selects the oject to add
-	// _arg = Array, contains the values used to define object
-	this.addObject = function(_obj, _arg)
-	{
-		switch(_obj)
-		{
-			case 0:
-			{
-				var t = new Block();
-				t.create(_arg[0], csr.getX(), csr.getY(), _arg[3], _arg[4]);
-				layers[sLay].addObject(t);
-				objs++;
-			}
-		}
-	}
-	
-	// retrieves the compressed map data
-	// _encode = Integer, used to select further compression
-	this.getJsonMap = function(_encode)
-	{
-		var b = "\"width\":"+w+", \"height\":"+h+", \"sourceWidth\":"+sw+", \"sourceHeight\":"+sh+", \"destinationWidth\":"+sw+", \"destinationHeight\":"+sh+", \"layers\":[";
-		switch(_encode)
-		{
-			case 1:
-			{
-				for(var a = 0; a < layers.length; a++)
-				{
-					b += "{\"name\": \""+layers[a].getName()+"\", \"tiles\":[";
-					c = type1RLE(layers[a].getTileNumbers());
-					for(var d = 0; d < c.length;d++)
-					{
-						b+= c[d]+",";
-					}
-					b=b.substring(0, b.lastIndexOf(","))+"]},";
-				}
-				
-				break;
-			}
-			
-			case 2:
-			{
-				for(var a = 0; a < layers.length; a++)
-				{
-					b += "{\"name\": \""+layers[a].getName()+"\", \"tiles\":[";
-					c = type2RLE(layers[a].getTileNumbers());
-					for(var d = 0; d < c.length;d++)
-					{
-						b+= c[d]+",";
-					}
-					b=b.substring(0, b.lastIndexOf(","))+"]},";
-				}
-				
-				break;
-			}
-			
-			default:
-			{
-				for(var a = 0; a < layers.length; a++)
-				{
-					b += "{\"name\": \""+layers[a].getName()+"\", \"tiles\":["+layers[a].getJsonTileNumbers()+"]},";
-				}
-				break;
-			}
-		}
-		return(b.substring(0, b.lastIndexOf(","))+"]");
-	}
-	
 	// makes the layer visible if _v = true
 	this.setLayerVisible = function(_v)
 	{
 		layers[sLay].setVisible(_v);
 	}
 	
-	// sets selected layer to the one indexed at _i
-	this.setSelectedLayer = function(_i)
-	{
-		sLay = _i;
-	}
-	
 	// returns true if the current layer is visible 
 	this.getLayerVisible = function()
 	{
 		return(layers[sLay].isVisible());
+	}
+	
+	// sets selected layer to the one indexed at _i
+	this.setSelectedLayer = function(_i)
+	{
+		sLay = _i;
 	}
 	
 	// returns array of tiles on layer indexed at _l expressed as integers
@@ -211,7 +143,7 @@ function Dest()
 	{
 		ctx.save()
 		ctx.fillStyle = "#000000";
-		ctx.fillRect(0,0,can.width,can.height);
+		ctx.clearRect(0,0,can.width,can.height);
 		ctx.translate(sx, sy);
 		
 		for(var a = layers.length-1; a >=0 ; a--)
@@ -301,5 +233,77 @@ function Dest()
 	this.onMouseOut = function()
 	{
 		selecting = dragging = false;
+	}
+	
+	// retrieves the compressed map data
+	// _encode = Integer, used to select further compression
+	this.getJsonMap = function(_encode)
+	{
+		var b = "\"width\":"+w+", \"height\":"+h+", \"sourceWidth\":"+sw+", \"sourceHeight\":"+sh+", \"destinationWidth\":"+sw+", \"destinationHeight\":"+sh+", \"layers\":[";
+		switch(_encode)
+		{
+			case 1:
+			{
+				for(var a = 0; a < layers.length; a++)
+				{
+					b += "{\"name\": \""+layers[a].getName()+"\", \"tiles\":[";
+					c = type1RLE(layers[a].getTileNumbers());
+					for(var d = 0; d < c.length;d++)
+					{
+						b+= c[d]+",";
+					}
+					b=b.substring(0, b.lastIndexOf(","))+"]},";
+				}
+				
+				break;
+			}
+			
+			case 2:
+			{
+				for(var a = 0; a < layers.length; a++)
+				{
+					b += "{\"name\": \""+layers[a].getName()+"\", \"tiles\":[";
+					c = type2RLE(layers[a].getTileNumbers());
+					for(var d = 0; d < c.length;d++)
+					{
+						b+= c[d]+",";
+					}
+					b=b.substring(0, b.lastIndexOf(","))+"]},";
+				}
+				
+				break;
+			}
+			
+			default:
+			{
+				for(var a = 0; a < layers.length; a++)
+				{
+					b += "{\"name\": \""+layers[a].getName()+"\", \"tiles\":["+layers[a].getJsonTileNumbers()+"]},";
+				}
+				break;
+			}
+		}
+		return(b.substring(0, b.lastIndexOf(","))+"]");
+	}
+	
+	// adds an game object to the array
+	// _obj = integer selects the oject to add
+	// _arg = Array, contains the values used to define object
+	this.addObject = function(_obj, _arg)
+	{
+		var sob = layers[sLay].selectCheck(csr.getX(), csr.getY());
+		if(sob < 0)
+		{
+			switch(_obj)
+			{
+				case 0:
+				{
+					var t = new Block();
+					t.create(_arg[0], csr.getX(), csr.getY(), _arg[3], _arg[4]);
+					layers[sLay].addObject(t);
+					objs++;
+				}
+			}
+		}
 	}
 }
