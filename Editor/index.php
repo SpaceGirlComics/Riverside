@@ -27,7 +27,7 @@
 		<table>
 			<table>
 				<tr>
-					<td colspan="2">
+					<td colspan="3">
 						<canvas id="source" width="450" height="300" oncontextmenu="return(false);" onmousedown="onSourceDown(event, this)" onmouseup="onSourceUp(event, this)" onmouseout="onSourceOut(event, this)" onmousemove="onSourceMove(event, this)">
 							A Modern Browser Is Required
 						</canvas>
@@ -42,11 +42,12 @@
 					<th onclick="onSelect(this, event)" class="selected">File</th>
 					<th onclick="onSelect(this, event)">New</th>
 					<th onclick="onSelect(this, event)">Layers</th>
+					<th onclick="onSelect(this, event)">Patterns</th>
 					<th onclick="onSelect(this, event)">Objs</th>
 					<th onclick="onSelect(this, event)">Console</th>
 				</tr>
 				<tr>
-					<td colspan="5">
+					<td colspan="6">
 						<div style="display:block; height:200px;" id="File">
 							<input id="fName" style="width:100px;" type="text" placeholder="File Name" />
 							<input id="fSaveAs" type="button" value="Save As" onclick="onSaveAs()" /><br />
@@ -163,6 +164,27 @@
 							<label for="lbg">BG</label>
 							<input id="lwe" type="checkbox" />
 							<label for="lwe">WE</lable>
+						</div>
+						<div style="display:none; height:200px;" id="Patterns">
+							<div style="float:left; width:50%">
+								<select style="width:167px;" id="ptLayer">
+								</select><br />
+								<input style="margin-top:5px; width:135px;" id="ptName" type="text" placeholder="New Pattern Name" />
+								<input id="ptAdd" type="button" value="+" /><br />
+								<select style="width:139px;" id="ptSelect">
+								</select>
+								<input id="ptRem" style="width:24px" type="button" value="-" /><br />
+								
+								<input id="plgName" style="margin-top:5px; width:135px;" type="text" placeholder="New Polygon Name" />
+								<input id="plgAdd" type="button" value="+" /><br />
+								<select style="width:139px;" id="plgSelect">
+								</select>
+								<input id="plgRem" style="width:24px" type="button" value="-" /><br />
+							</div>
+							<div style="float:left; width:50%">
+								<canvas id="ptBuffer" width="128" height="128" style="background-color:#220066; border:2px solid #aaaaff;" oncontextmenu="return(false);" onmousedown="onPatDown(event, this)" onmouseup="onPatUp(event, this)" onmouseout="onPatOut(event, this)" onmousemove="onPatMove(event, this)">
+								</canvas>
+							</div>
 						</div>
 						<div style="display:none; height:200px;" id="Objs">
 							<select>
