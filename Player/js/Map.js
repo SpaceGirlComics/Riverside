@@ -233,15 +233,12 @@ function Map()
 			{
 				for(var x = 0; x < layers.length; x++)
 				{
+					if(x==1 && player)
+					{
+						layers[x].check(player);
+					}
 					layers[x].update(_delta, _dx, _dy);
-					if(x == 1 && layers[x].check(player) < 15)
-					{
-						lastError = "collision";
-					}
-					else
-					{
-						lastError = layers[x].check(player);
-					}
+					
 				}
 				
 				break;
