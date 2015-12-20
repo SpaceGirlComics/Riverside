@@ -1,0 +1,115 @@
+div.menu
+{
+	position:fixed;
+	top: 0em;
+	height: 1.5em;
+	width:100%;
+	background-color: #ffffff;
+}
+
+div.menu ul
+{
+	list-style: outside none none;
+	margin: 0em;
+	padding: 0em;
+}
+
+div.menu ul li
+{
+	float: left;
+}
+
+div.menu ul li:hover
+{
+	background-color:#afafaf;
+}
+
+div.menu ul li a
+{
+	color: #000000;
+	text-decoration:none;
+	display:block;
+	height: 1.4em;
+	padding-left:1.0em;
+	padding-right:1.0em;
+	padding-top: 0.1em;
+	v-align:middle;
+}
+
+div.menu ul li a:hover
+{
+	background-color: #5500ff;
+	color: #ffffff;
+}
+
+div.menu ul li ul
+{
+	display: none;
+	position: absolute;
+	background-color: #ffffff;
+	border-bottom:8px;
+	border-radius: 0px 0px 4px 4px;
+	
+}
+
+div.menu ul li ul li
+{
+	clear:both;
+	width:200px;
+	position:relative;
+}
+
+div.menu ul li ul li ul
+{
+	display: none;
+	border-bottom:8px;
+	border-radius: 4px 4px 4px 4px;
+	left:100%;
+	top:0em;
+}
+
+div.menu ul li:hover ul li ul
+{
+	display:none;
+}
+
+div.menu ul li ul li:hover ul
+{
+	display:block;
+}
+
+div.menu ul li ul li.side span
+{
+	color: #000000;
+	text-decoration:none;
+	display:block;
+	height: 1.4em;
+	padding-left:1.0em;
+	padding-right:1.0em;
+	padding-top: 0.1em;
+	v-align:middle;
+}
+
+div.menu ul li ul li.side span:active
+{
+	background-color: #5500ff;
+	color: #ffffff;
+}
+
+div.menu ul li ul li.side span:after
+{
+	
+	content:"\25BA";
+	float: right;
+}
+
+
+div.menu ul li.divider
+{
+	border-bottom: 1px solid black;
+}
+
+div.menu ul li:hover ul
+{
+	display: block;
+}
