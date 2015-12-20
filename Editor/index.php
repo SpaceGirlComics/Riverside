@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>
-			SG Editor
-		</title>
+		<title>Level Editor</title>
+		
+		<link rel="stylesheet" type="text/css" href="css/edit.css" />
+		<link rel="stylesheet" type="text/css" href="css/blades.css" />
 		
 		<link rel="stylesheet" href="css/editor.css" type="text/css" />
+		
+		<script src="js/Blade.js" type="text/javascript"></script>
+		<script src="js/BladeControl.js" type="text/javascript"></script>
+		<script src="js/events.js" type="text/javascript"></script>
 		
 		<script src="js/common.js" type="text/javascript"></script>
 		<script src="js/Box.js" type="text/javascript"></script>
@@ -24,207 +29,23 @@
 		<script src="js/snl.js" type="text/javascript"></script>
 	</head>
 	<body onload="onLoad()">
-		<table>
-			<table>
-				<tr>
-					<td colspan="3">
-						<canvas id="source" width="450" height="300" oncontextmenu="return(false);" onmousedown="onSourceDown(event, this)" onmouseup="onSourceUp(event, this)" onmouseout="onSourceOut(event, this)" onmousemove="onSourceMove(event, this)">
-							A Modern Browser Is Required
-						</canvas>
-					</td>
-					<td colspan="3">
-						<canvas id="dest" width="450" height="300" oncontextmenu="return(false);" onmousedown="onDestDown(event, this)" onmouseup="onDestUp(event, this)" onmouseout="onDestOut(event, this)" onmousemove="onDestMove(event, this)">
-							A Modern Browser Is Required
-						</canvas>
-					</td>
-				</tr>
-				<tr id="menu">
-					<th onclick="onSelect(this, event)" class="selected">File</th>
-					<th onclick="onSelect(this, event)">New</th>
-					<th onclick="onSelect(this, event)">Layers</th>
-					<th onclick="onSelect(this, event)">Patterns</th>
-					<th onclick="onSelect(this, event)">Objs</th>
-					<th onclick="onSelect(this, event)">Console</th>
-				</tr>
-				<tr>
-					<td colspan="6">
-						<div style="display:block; height:200px;" id="File">
-							<input id="fName" style="width:100px;" type="text" placeholder="File Name" />
-							<input id="fSaveAs" type="button" value="Save As" onclick="onSaveAs()" /><br />
-							<select style="width:167px;" id="fSelect">
-							<?php
-								$d = scandir("maps");
-								foreach($d as $f)
-								{
-									if($f != "." && $f != "..")
-									{
-										echo "\t\t\t\t\t\t\t<option>".$f."</option>\n";
-									}
-								}
-							?>
-							</select><br />
-							<input id="fLoad" type="button" value="Load" onclick="onLoadFile()" />
-							<input id="fSave" type="button" value="Save" onclick="onSave()" /><br />
-							<input id="fRaw" name="encode" type="radio" value="0" checked="checked" />Raw<br />
-							<input id="fRLE1" name="encode" type="radio" value="1" />RLE1<br />
-							<input id="fRLE2" name="encode" type="radio" value="2" />RLE2<br />
-							<div id ="reply"></div>
-						</div>
-						<div style="display:none; height:200px;" id="New">
-							<div style="width:25%; float:left">
-								<input id="mName" style="width:167px;" onchange="onNameChange(this)" type="text" placeholder="Map Name"  /><br />
-								<input id="mWidth" style="width:75px;" onchange="onNumberChange(this)" type="text" placeholder="Map Width" />
-								<input id="mHeight" style="width:75px;" onchange="onNumberChange(this)" type="text" placeholder="Map Height" /><br />
-								<input id="sWidth" style="width:75px;" onchange="onNumberChange(this)" type="text" placeholder="Source Width" />
-								<input id="sHeight" style="width:75px;" onchange="onNumberChange(this)" type="text" placeholder="Source Height" /><br />
-								<input id="dWidth" style="width:75px;" onchange="onNumberChange(this)" type="text" placeholder="Dest Width" />
-								<input id="dHeight" style="width:75px;" onchange="onNumberChange(this)" type="text" placeholder="Dest Height" /><br />
-								<select style="width:167px;" id="mTileMap">
-									<option disabled="disabled" selected="selected" />Tile Map</option>
-									<?php
-										$d = scandir("tilemaps");
-										foreach($d as $f)
-										{
-											if($f != "." && $f != "..")
-											{
-												echo "\t\t\t\t\t\t\t<option>".$f."</option>\n";
-											}
-										}
-									?>
-								</select><br />
-								<select style="width:130px;" id="mBgm">
-									<option disabled="disabled" selected="selected" />BGM</option>
-									<option>None</option>
-									<?php
-										$d = scandir("music");
-										$s = "";
-										foreach($d as $f)
-										{
-											
-											$f=substr($f, 0, (strlen ($f)) - (strlen (strrchr($f,'.'))));
-											if($f != "." && $f != ".." && strlen($f)>0 && !strstr($s, $f))
-											{
-												$s .= "\t\t\t\t\t\t\t<option>".$f."</option>\n";
-											}
-										}
-										echo $s;
-									?>
-								</select>
-								<input id="mPlay" type="button" value=">" onclick="onPlay(this, event)" /><br />
-								<input id="mBuild" type="button" value="Build" onclick="onBuild()" />
-								<input id="mAuto" type="button" value="Auto" onclick="onAuto()" />
-							</div>
-							<div style="width:25%; float:left">
-								<select style="width:130px;" id="mWea">
-									<option disabled="disabled" selected="selected" />Weather</option>
-									<option>Sun</option>
-									<option>Night</option>
-									<option>Rainy Night</option>
-									<option>Rain</option>
-									<option>Snow</option>
-									<option>Snowey Night</option>
-									<option>Blizzard</option>
-								</select><br />
-								<select style="width:130px;" id="mBd">
-									<option disabled="disabled" selected="selected" />Backdrop</option>
-									<option>Clear On New Frame</option>
-									<?php
-										$d = scandir("backdrops");
-										$s = "";
-										foreach($d as $f)
-										{
-											
-											$f=substr($f, 0, (strlen ($f)) - (strlen (strrchr($f,'.'))));
-											if($f != "." && $f != ".." && strlen($f)>0 && !strstr($s, $f))
-											{
-												$s .= "\t\t\t\t\t\t\t<option>".$f."</option>\n";
-											}
-										}
-										echo $s;
-									?>
-								</select><br />
-								<input id="tiled" checked="checked" name="bdStrech" type="radio" />
-								<label for="tiled">Tiled</label>
-								<input id="stretch" name="bdStrech" type="radio" />
-								<label for="stretch">Stretch</lable>							
-							</div><br />						
-						</div>
-						<div style="display:none; height:200px;" id="Layers">
-							<select style="width:167px;" id="lSelected" height="5" disabled="disabled" onchange="onLayerChange(event, this)">
-							</select>
-							<input id="lVisable" type="checkbox" disabled="disabled" onchange="onSetLayerVisible(event, this)" /><br />
-							<input id="lName" type="text" placeholder="New Layer Name" disabled="disabled" />
-							<input id="lFill" type="checkbox" disabled="disabled" /><br />
-							<input id="lRaise" style="width:35px;" type="button" value="&uarr;" onclick="onRaiseLayer(event)" disabled="disabled" />
-							<input id="lLower" style="width:35px;" type="button" value="&darr;" onclick="onLowerLayer(event)" disabled="disabled" />
-							<input id="lRemove" style="width:35px;" type="button" value="-" onclick="onRemLayer(event)" disabled="disabled" />
-							<input id="lAdd" style="width:35px;" type="button" value="+" onclick="onAddLayer(event)" disabled="disabled" />
-							<input id="tiled" checked="checked" name="bdStrech" type="radio" />
-							<input id="lbg" type="checkbox" />
-							<label for="lbg">BG</label>
-							<input id="lwe" type="checkbox" />
-							<label for="lwe">WE</lable>
-						</div>
-						<div style="display:none; height:200px;" id="Patterns">
-							<div style="float:left; width:50%">
-								<select style="width:167px;" id="ptLayer">
-								</select><br />
-								<input style="margin-top:5px; width:135px;" id="ptName" type="text" placeholder="New Pattern Name" />
-								<input id="ptAdd" type="button" value="+" /><br />
-								<select style="width:139px;" id="ptSelect">
-								</select>
-								<input id="ptRem" style="width:24px" type="button" value="-" /><br />
-								
-								<input id="plgName" style="margin-top:5px; width:135px;" type="text" placeholder="New Polygon Name" />
-								<input id="plgAdd" type="button" value="+" /><br />
-								<select style="width:139px;" id="plgSelect">
-								</select>
-								<input id="plgRem" style="width:24px" type="button" value="-" /><br />
-							</div>
-							<div style="float:left; width:50%">
-								<canvas id="ptBuffer" width="128" height="128" style="background-color:#220066; border:2px solid #aaaaff;" oncontextmenu="return(false);" onmousedown="onPatDown(event, this)" onmouseup="onPatUp(event, this)" onmouseout="onPatOut(event, this)" onmousemove="onPatMove(event, this)">
-								</canvas>
-							</div>
-						</div>
-						<div style="display:none; height:200px;" id="Objs">
-							<select>
-								<option>Chest</option>
-								<option>Switch</option>
-								<option>Character</option>
-								<option>Sprite</option>
-								<option>Block</option>
-							</select>
-							<!--div id="Chest" style="margin:5px; display:block;">
-								<div style="width:33%; float:left;">
-									<input type="text" style="width:75px;" placeholder="X" />
-									<input type="text" style="width:75px;" placeholder="Y" /><br/>
-									<select>
-										<option disabled="disabled" selected="selected" />Layer</option>
-									</select><br />
-									<select>
-										<option disabled="disabled" selected="selected" />Contains</option>
-									</select><br />
-									<input name="locked" type="radio" checked="checked" />Unlocked<br />
-									<input name="locked" type="radio" />Locked<br />
-									<input name="locked" type="radio" />Sealed<br />
-									<input name="locked" type="radio" />Opened<br />
-								</div>
-								<div style="width:33%; float:right">
-									<textarea placeholder="On Activate" style="resize:none;"></textarea>
-								</div>
-								
-							</div-->
-						</div>
-						<div style="display:none; height:200px;" id="Console">
-							<div id="con" class="console">
-							</div>
-							<textarea id="command" style="resize:none; width:600px; height:80px; margin-top:5px" placeholder="Command" /></textarea>
-							<input id="return" type="button" onclick="onCommand(event)" value="&#9166;" />
-						</div>
-					</td>
-				</tr>
-			</table>
-		</table>
-		<audio id="mAudio" onended="onAudioEnd(this)"></audio>
+		<?php
+			include("blades/File.php");
+			include("blades/New.php");
+			include("blades/Layers.php");
+			include("blades/Tiles.php");
+			include("blades/Patterns.php");
+			include("blades/Objects.php");
+			include("blades/Console.php");
+		?>
+		<div style="position:relative; left:25.5em;">
+			<canvas	style="background-color:#000000; border-width:2px; border-style:inset" width="550" height="550">
+				A Modern Browser Is Required
+			</canvas><br />
+			<input class="btype" type="radio" name="dMode" id="dEdit" checked="checked" />
+			<label for="dEdit" title="Edit">&#9998;</label>
+			<input class="btype" type="radio" name="dMode" id="dPan" />
+			<label for="dPan" title="Pan">&#9995;</label>
+		</div>
 	</body>
 </html>
