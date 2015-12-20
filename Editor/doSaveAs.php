@@ -1,25 +1,27 @@
 <?php
-// server script. Saves map to a file on the server
-// © 2015 spacegirl.net
-// April 15, 2015 - initial submit
-
-// check if a file name is specified
-if(isset($_POST['n']))
+if($_POST['fname'])
 {
-	$fname = $_POST['n'];				// get the file name from the qstring
-	$fdata = $_POST['m'];				// get the map data from the qstring
-	$f = fopen("maps/".$fname, "w");		// open (create) the file
-	if($f)
+	if($_POST['dat'])
 	{
-		if(fwrite($f, $fdata))			// write data to the file
+		$file = fopen($_POST['fname'], "w");
+		if($file)
 		{
-			echo "File Saved As ".$fname;	// echo success back to the client
+			fwrite($file, $_POST['dat']);
+			fclose($file);
+			echo "{\"type\":\"success\", \"message\":\"File Successfully Saved As".$_POST['fname']."\"}";
 		}
 		else
 		{
-			echo "File Save Failed";	// echo failure
+			echo "{\"type\":\"error\", \"message\":\"File Write Has Failed, Check File Name And Try Again\"}";
 		}
-		fclose($f);				// close the file
 	}
+	else
+	{
+		echo "{\"type\":\"error\", \"message\":\"File Is Empty.\"}";
+	}
+}
+else
+{
+	echo "{\"type\":\"error\", \"message\":\"File Name Not Specified.\"}";
 }
 ?>
