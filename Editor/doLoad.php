@@ -1,19 +1,21 @@
 <?php
-// server script. Loads a map as a string and sends it to the clients
-// © 2015 spacegirl.net
-// April 15, 2015 - initial submit
-
-// check for the file name in the qstring
-if(isset($_POST['n']))
+if(isset($_POST['fname']))
 {
-	$n = "maps/".$_POST['n'];
-	$f = fopen($n, "r");				// opens the file
-	if($f)
+	$file = fopen("maps/".$_POST['fname'], "r");
+	if($file)
 	{
-		$s = fread($f, filesize($n));		// read its contents
-		fclose($f);				// close the file
-		echo $s;				// echo the data to the client
+		$block = fread($file, filesize("maps/".$_POST['fname']));
+		fclose($file);
+		//echo $block;
+		echo "{\"type\":\"map\", \"message\":\"File Load Successful\", \"data\":".$block."}";
+	}
+	else
+	{
+		echo "{\"type\":\"error\", \"message\":\"Could Not Find File ".$_POST['fname']."\"}";
 	}
 }
-
+else
+{
+	echo "{\"type\":\"error\", \"message\":\"File Name Not Specified\"}";
+}
 ?>
