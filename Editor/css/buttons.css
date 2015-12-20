@@ -1,0 +1,29 @@
+input.btype[type=radio]
+{
+	display:none;
+	margin: 10px;
+}
+
+input.btype[type=radio] + label
+{
+	display:inline-block;
+	margin:-1px;
+	padding:4px 12px;
+	background-color: #aaaaaa;
+	border-radius:3px;
+	line-height: 30px;
+	text-align: center;
+	vertical-align: middle;
+	min-width:20px;
+	min-height:30px;
+}
+
+input.btype[type=radio] + label:hover
+{
+	background-color: #bbbbbb;
+}
+
+input.btype[type=radio]:checked + label
+{
+	background-color: #ffffff;
+}
