@@ -1,0 +1,183 @@
+var windowStack 		= [];		// The stack of visible windows
+var drag 			= null;		// Element beiong dragged
+
+/**
+* <p>Begins the dragging state. called when a windows title bar is pressed</p>
+*
+* @function
+* @name startDrag
+* @param {HTMLDivElement} _t the calling Object
+*/
+function startDrag(_t)
+{
+	drag = _t.parentElement.id
+}
+
+/**
+* <p>Ends the dragging state. called when a windows title bar is released</p>
+*
+* @function
+* @name stopDrag
+* @param {HTMLDivElement} _t the calling Object
+*/
+function stopDrag()
+{
+	drag = null;
+}
+
+/**
+* <p>Changes the window style to show it has focus</p>
+*
+* @function
+* @name doFocus
+* @param {HTMLDivElement} _elm the window gaining focus
+*/
+function doFocus(_elm)
+{
+	_elm.className = "frameWindow focus";
+}
+
+/**
+* <p>Changes the window style to show it has lost focus</p>
+*
+* @function
+* @name doBlur
+* @param {HTMLDivElement} _elm the window losing focus
+*/
+function doBlur(_elm)
+{
+	_elm.className = "frameWindow blur";
+}
+
+/**
+* <p>Moves a window onto the stack</p>
+*
+* @function
+* @name pushWindow
+* @param {HTMLDivElement} _elm the window
+*/
+function pushWindow(_elm)
+{
+	windowStack.push(_elm);
+}
+
+/**
+* <p>Removes the top window from the stack</p>
+*
+* @function
+* @name popWindow
+*/
+function popWindow()
+{
+	var temp = windowStack.pop();
+	return(temp);
+}
+
+/**
+* <p>Moves a window to the top of the stack and gives it focus</p>
+*
+* @function
+* @name reorderWindows
+* @param {HTMLDivElement} _elm the window gaining focus
+*/
+function reorderWindows(_elm)
+{
+	var temp = null;
+	for(var x = 0; x < windowStack.length; x++)
+	{
+		doBlur(windowStack[x]);
+		if(_elm != null && _elm.id == windowStack[x].id)
+		{
+			temp = windowStack[x];
+		}
+		if(temp != null)
+		{
+			if(x == windowStack.length-1)
+			{
+				windowStack[x] = temp;
+				doFocus(windowStack[x]);
+			}
+			else
+			{
+				windowStack[x] = windowStack[x+1];
+			}
+			windowStack[x].style.zIndex = x+1;
+		}
+		else
+		{
+			if(x == windowStack.length-1)
+			{
+				doFocus(windowStack[x]);
+				windowStack[x].style.zIndex = 1+windowStack.length;
+			}
+		}		
+	}
+}
+
+/**
+* <p>Puts the page in a modal state by placing a tranparent div over it</p>
+*
+* @function
+* @name doModal
+*/
+function doModal()
+{
+	document.getElementById("modal").style.display = "block";
+}
+
+/**
+* <p>If in modal state, modal state is ended</p>
+*
+* @function
+* @name doneModal
+*/
+function doneModal()
+{
+	document.getElementById("modal").style.display = "none";
+}
+
+/**
+* <p>Displays a specified window</p>
+*
+* @function
+* @name onWindowOpen
+* @param {string} _name The id of the window being opened
+* @param {boolean} true if the window is modal
+*/
+function onWindowOpen(_name, _modal)
+{
+	if(_modal)
+	{
+		doModal();
+	}
+	var nb = document.getElementById(_name);
+	nb.style.display = "block";
+	nb.style.backgroundColor = "#efefef";
+	nb.className = "frameWindow focus";
+	if(!nb.style.top)
+	{
+		nb.style.top = (window.innerHeight/2 - nb.offsetHeight/2)+"px"; //"200px";
+		nb.style.left = (window.innerWidth/2 - nb.offsetWidth/2)+"px"; //"300px";
+	}
+	pushWindow(nb);
+	reorderWindows(nb);
+}
+
+/**
+* <p>Closes a specified window</p>
+*
+* @function
+* @name onWindowClose
+* @param {string} _name The id of the window being closed
+*/
+function onWindowClose(_name)
+{
+	doneModal();
+	
+	var nb = document.getElementById(_name);
+	nb.style.display = "none";
+	nb.style.backgroundColor = "#efefef";
+	nb.className = "frameWindow blur";
+	popWindow(nb);
+	reorderWindows(null);
+}
