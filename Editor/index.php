@@ -8,8 +8,6 @@
 		<link href="css/statBar.css" rel="stylesheet" />
 		<link href="css/frameWindow.css" rel="stylesheet" />
 		<script type="text/javascript" src="js/common.js"></script>
-		<script type="text/javascript" src="js/obj/PNode.js"></script>
-		<script type="text/javascript" src="js/obj/Path.js"></script>
 		<script type="text/javascript" src="js/defines.js"></script>
 		<script type="text/javascript" src="js/Map/Tile.js"></script>
 		<script type="text/javascript" src="js/Map/Layer.js"></script>
