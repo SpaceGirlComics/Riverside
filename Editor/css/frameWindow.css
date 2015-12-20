@@ -1,0 +1,52 @@
+div.frameWindow
+{
+	border: 2px solid #adadad;
+	position:absolute;
+}
+
+div.focus
+{
+	border: 3px solid #000000;
+	box-shadow: 10px 10px 10px 5px rgba(50,50,50,0.75);
+}
+
+div.blur
+{
+	border: 1px solid #252525;
+	//box-shadow: 10px 10px 10px 5px rgba(50,50,50,0.75);
+}
+
+div.titleBar
+{
+	width:100%;
+	height:1.8em;
+	
+}
+
+div.focus div.titleBar
+{
+	background-color: #0000aa;
+}
+
+div.blur div.titleBar
+{
+	background-color: #555555;
+}
+
+div.titleBar span
+{
+	display:block;
+	padding-left:0.5em;
+	padding-top:0.25em;
+	color:#ffffff;
+}
+
+div.client
+{
+	padding: 1.0em 0.5em 0.25em 0.5em;
+}
+
+div.client input[type="text"], div.client select
+{
+	margin: 0.25em;
+}
